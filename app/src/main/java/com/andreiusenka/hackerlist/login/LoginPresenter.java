@@ -16,4 +16,8 @@ public class LoginPresenter implements LoginContract.Presenter {
     LoginPresenter (@NonNull LoginContract.View loginView) {
         loginView.setPresenter(this);
     }
+
+    public void login() {
+
+    }
 }
