@@ -15,18 +15,35 @@
       },
       "oauth_client": [
         {
+          "client_id": "128433111125-mraa99anq3f669pg1p3q84l5uhtjnn2d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.andreiusenka.hackerlist",
+            "certificate_hash": "D1494C14EA37F65094D572EF908E53FBD7202B2F"
+          }
+        },
+        {
           "client_id": "128433111125-aidsfh75goema8ore4bm9gc1cm75ogfb.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
-      "api_key": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDfnyhrH0UBKCcklN7ooOt0qHzmS2wfcJw"
+        }
+      ],
       "services": {
         "analytics_service": {
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "128433111125-aidsfh75goema8ore4bm9gc1cm75ogfb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

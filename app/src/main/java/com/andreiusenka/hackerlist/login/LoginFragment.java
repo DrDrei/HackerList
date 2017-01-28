@@ -6,13 +6,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewGroupCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.andreiusenka.hackerlist.R;
@@ -26,8 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class LoginFragment extends Fragment implements LoginContract.View {
 
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseUser mFirebaseUser;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     private LoginContract.Presenter mLoginPresenter;
 
@@ -35,6 +33,17 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     private EditText emailEditText;
     private EditText passwordEditText;
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseAuth.getInstance().addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        FirebaseAuth.getInstance().removeAuthStateListener(mAuthListener);
+    }
 
     public static LoginFragment newInstance() {
         return new LoginFragment();
@@ -48,15 +57,30 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+
+                    toastMessage("Logging user in...");
+                    logUserIn();
+                } else {
+                    toastMessage("Logging user out...");
+                    // User is signed out
+//                    logUserOut();
+                }
+            }
+        };
 
     }
 
     @Nullable @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.login_fragment, container, false);
-
-        // Set up firebase
-
 
         // Set Up Button and EditText fields
         loginButton = (Button) root.findViewById(R.id.button_login);
@@ -78,21 +102,35 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         return root;
     }
 
-    public void firebaseLogin(FirebaseAuth auth, String email, String password) {
-        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener((Activity) getContext(), new OnCompleteListener<AuthResult>() {
+
+    public void firebaseLogin(String email, String password) {
+        FirebaseAuth.getInstance().signInWithEmailAndPassword("drei3000@gmail.com", "rewind").addOnCompleteListener((Activity) getContext(), new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
-                    Intent intent = new Intent(getContext(), TaskActivity.class);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(intent);
+                    logUserIn();
+                    toastMessage("Logging in...");
                 } else {
-                    toastMessage("Login Failed.");
+                    Log.i("FireBase", "signInWithEmail", task.getException());
+                    Toast.makeText(getContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
     }
+
+    public void logUserIn() {
+        Intent intent = new Intent(getContext(), TaskActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+
+//    public void logUserOut() {
+//        Intent intent = new Intent(getContext(), LoginActivity.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        startActivity(intent);
+//    }
 
     public void toastMessage(String message) {
         Toast toast = Toast.makeText(getContext(), message, Toast.LENGTH_SHORT);

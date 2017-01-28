@@ -12,17 +12,14 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LoginPresenter implements LoginContract.Presenter {
 
     private LoginContract.View loginView;
-    private FirebaseAuth mFirebaseAuth;
 
     @Override
     public void start() {
-
     }
 
     LoginPresenter (@NonNull LoginContract.View loginView) {
         loginView.setPresenter(this);
         this.loginView = loginView;
-        mFirebaseAuth = FirebaseAuth.getInstance();
     }
 
     public void login(EditText email, EditText password) {
@@ -33,7 +30,7 @@ public class LoginPresenter implements LoginContract.Presenter {
         if (emailText.isEmpty() || passwordText.isEmpty()) {
             loginView.toastMessage("Please fill in all fields.");
         } else {
-            loginView.firebaseLogin(mFirebaseAuth, emailText, passwordText);
+            loginView.firebaseLogin(emailText, passwordText);
         }
 
 

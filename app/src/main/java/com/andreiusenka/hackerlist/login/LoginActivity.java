@@ -1,6 +1,7 @@
 package com.andreiusenka.hackerlist.login;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +10,8 @@ import android.view.View;
 
 import com.andreiusenka.hackerlist.R;
 import com.andreiusenka.hackerlist.util.ActivityUtils;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -32,6 +35,8 @@ public class LoginActivity extends AppCompatActivity {
 
         // Create the presenter
         LoginPresenter loginPresenter = new LoginPresenter(loginFragment);
+
+        // Firebase setup
 
     }
 
