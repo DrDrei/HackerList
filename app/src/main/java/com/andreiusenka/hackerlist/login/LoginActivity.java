@@ -24,13 +24,14 @@ public class LoginActivity extends AppCompatActivity {
         //Initialize Navigation drawer
 
         //Create the view
-        LoginFragment loginFragment = (LoginFragment) getSupportFragmentManager().findFragmentById(R.id.content_login);
+        LoginFragment loginFragment = (LoginFragment) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
         if (loginFragment == null) {
             loginFragment = loginFragment.newInstance();
-            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), loginFragment, R.id.content_login);
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), loginFragment, R.id.contentFrame);
         }
 
-
+        // Create the presenter
+        LoginPresenter loginPresenter = new LoginPresenter(loginFragment);
 
     }
 
