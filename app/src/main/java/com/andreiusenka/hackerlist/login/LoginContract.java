@@ -1,6 +1,7 @@
 package com.andreiusenka.hackerlist.login;
 
 import android.support.annotation.NonNull;
+import android.widget.EditText;
 
 import com.andreiusenka.hackerlist.BasePresenter;
 import com.andreiusenka.hackerlist.BaseView;
@@ -14,12 +15,12 @@ import java.util.List;
 public interface LoginContract {
 
     interface View extends BaseView<Presenter> {
-        public void loadLogInView();
+        void loadLogInView();
+        void toastMessage(String message);
     }
 
     interface Presenter extends BasePresenter {
-
-        public void login();
+        void login(EditText email, EditText password);
 
     }
 

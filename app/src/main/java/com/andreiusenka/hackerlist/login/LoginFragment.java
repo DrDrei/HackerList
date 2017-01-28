@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.andreiusenka.hackerlist.R;
 import com.andreiusenka.hackerlist.Tasks.TaskActivity;
@@ -60,7 +61,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mLoginPresenter.login();
+                mLoginPresenter.login(emailEditText, passwordEditText);
             }
         });
 
@@ -77,5 +78,10 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+    }
+
+    public void toastMessage(String message) {
+        Toast toast = Toast.makeText(getContext(), message, Toast.LENGTH_SHORT);
+        toast.show();
     }
 }
