@@ -48,6 +48,12 @@ public class LoginFragment extends Fragment implements LoginContract.View {
 
         // Set Up Button
         loginButton = (Button) root.findViewById(R.id.button_login);
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mLoginPresenter.login();
+            }
+        });
 
         return root;
     }

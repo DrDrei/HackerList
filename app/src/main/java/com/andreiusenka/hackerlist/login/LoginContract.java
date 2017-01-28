@@ -19,6 +19,8 @@ public interface LoginContract {
 
     interface Presenter extends BasePresenter {
 
+        public void login();
+
     }
 
 
