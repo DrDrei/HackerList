@@ -1,0 +1,38 @@
+{
+  "project_info": {
+    "project_number": "128433111125",
+    "firebase_url": "https://hackerlist-7b172.firebaseio.com",
+    "project_id": "hackerlist-7b172",
+    "storage_bucket": "hackerlist-7b172.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:128433111125:android:125f95fa95e3b0b0",
+        "android_client_info": {
+          "package_name": "com.andreiusenka.hackerlist"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "128433111125-aidsfh75goema8ore4bm9gc1cm75ogfb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
