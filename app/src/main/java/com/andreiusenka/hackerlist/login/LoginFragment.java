@@ -1,7 +1,9 @@
 package com.andreiusenka.hackerlist.login;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewGroupCompat;
@@ -15,6 +17,9 @@ import android.widget.Toast;
 
 import com.andreiusenka.hackerlist.R;
 import com.andreiusenka.hackerlist.Tasks.TaskActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -73,11 +78,20 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         return root;
     }
 
-    public void loadLogInView() {
-        Intent intent = new Intent(getContext(), TaskActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
+    public void firebaseLogin(FirebaseAuth auth, String email, String password) {
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener((Activity) getContext(), new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    Intent intent = new Intent(getContext(), TaskActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                } else {
+                    toastMessage("Login Failed.");
+                }
+            }
+        });
     }
 
     public void toastMessage(String message) {

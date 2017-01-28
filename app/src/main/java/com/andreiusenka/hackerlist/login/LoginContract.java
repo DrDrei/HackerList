@@ -5,6 +5,7 @@ import android.widget.EditText;
 
 import com.andreiusenka.hackerlist.BasePresenter;
 import com.andreiusenka.hackerlist.BaseView;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
@@ -15,8 +16,8 @@ import java.util.List;
 public interface LoginContract {
 
     interface View extends BaseView<Presenter> {
-        void loadLogInView();
         void toastMessage(String message);
+        void firebaseLogin(FirebaseAuth auth, String email, String password);
     }
 
     interface Presenter extends BasePresenter {
