@@ -7,6 +7,8 @@ package com.andreiusenka.hackerlist.data;
 public class Task {
 
 
-
+    public String getTitleForListView() {
+        return "Title!";
+    }
 
 }
