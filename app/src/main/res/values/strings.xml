@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">HackerList</string>
+
+    <!-- Login Activity -->
     <string name="title_activity_login">LoginActivity</string>
+    <string name="button_login">Login</string>
+
 </resources>

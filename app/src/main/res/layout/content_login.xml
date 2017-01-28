@@ -13,4 +13,12 @@
     tools:context="com.andreiusenka.hackerlist.LoginActivity"
     tools:showIn="@layout/login_activity">
 
+
+    <Button
+        android:text="@string/button_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button_login"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 </RelativeLayout>
