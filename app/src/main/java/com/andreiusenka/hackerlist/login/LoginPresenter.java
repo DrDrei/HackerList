@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 
 public class LoginPresenter implements LoginContract.Presenter {
 
+    private LoginContract.View loginView;
     @Override
     public void start() {
 
@@ -15,9 +16,10 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     LoginPresenter (@NonNull LoginContract.View loginView) {
         loginView.setPresenter(this);
+        this.loginView = loginView;
     }
 
     public void login() {
-
+        loginView.loadLogInView();
     }
 }

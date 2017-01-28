@@ -14,7 +14,7 @@ import java.util.List;
 public interface LoginContract {
 
     interface View extends BaseView<Presenter> {
-
+        public void loadLogInView();
     }
 
     interface Presenter extends BasePresenter {
