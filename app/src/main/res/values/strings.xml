@@ -8,4 +8,7 @@
     <string name="password_prompt">Password</string>
 
 
+    <!-- Tasks Activity -->
+    <string name="title_activity_tasks">Tasks</string>
+
 </resources>
