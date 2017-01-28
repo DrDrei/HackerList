@@ -33,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
         // Create the presenter
         LoginPresenter loginPresenter = new LoginPresenter(loginFragment);
 
-
     }
 
 }
