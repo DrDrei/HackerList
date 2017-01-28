@@ -10,15 +10,32 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.andreiusenka.hackerlist.login.LoginActivity"
-    tools:showIn="@layout/login_activity">
+    tools:context="com.andreiusenka.hackerlist.login.LoginActivity">
 
+
+    <CheckedTextView
+        android:text="@string/password_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkedTextView2"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <CheckedTextView
+        android:text="@string/email_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/checkedTextView"
+        android:layout_alignBottom="@+id/checkedTextView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp" />
 
     <Button
         android:text="@string/button_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/button_login"
-        android:layout_centerVertical="true"
+        android:layout_marginTop="55dp"
+        android:layout_below="@+id/checkedTextView2"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>
