@@ -3,10 +3,13 @@ package com.andreiusenka.hackerlist.Tasks;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.andreiusenka.hackerlist.R;
 import com.andreiusenka.hackerlist.util.ActivityUtils;
-
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 
 public class TaskActivity extends AppCompatActivity {
@@ -31,5 +34,24 @@ public class TaskActivity extends AppCompatActivity {
         // Create the presenter
         TaskPresenter taskPresenter = new TaskPresenter(taskFragment);
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.task_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.tasks_activity_toolbar_logout) {
+            FirebaseAuth.getInstance().signOut();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

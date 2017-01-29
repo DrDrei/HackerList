@@ -10,5 +10,6 @@
 
     <!-- Tasks Activity -->
     <string name="title_activity_tasks">Tasks</string>
+    <string name="toolbar_logout">Log Out</string>
 
 </resources>

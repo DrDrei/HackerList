@@ -1,6 +1,8 @@
 package com.andreiusenka.hackerlist.Tasks;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,8 +17,10 @@ import android.widget.TextView;
 
 import com.andreiusenka.hackerlist.R;
 import com.andreiusenka.hackerlist.data.Task;
-
-import org.w3c.dom.Text;
+import com.andreiusenka.hackerlist.login.LoginActivity;
+import com.andreiusenka.hackerlist.util.Toasts;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +29,8 @@ import java.util.List;
 public class TaskFragment extends Fragment implements TaskContract.View  {
 
     private TaskContract.Presenter mTaskPresenter;
+
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     private View noTasksView;
     private LinearLayout tasksView;
@@ -51,6 +57,31 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         listAdapter = new TaskAdapter(new ArrayList<Task>(0));
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user == null) {
+                    // Sign user out
+                    Toasts.toastMessage(getContext(), "Logging out...");
+                    logUserOut();
+                }
+            }
+        };
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseAuth.getInstance().addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        FirebaseAuth.getInstance().removeAuthStateListener(mAuthListener);
     }
 
     @Nullable @Override
@@ -119,5 +150,15 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
 
     private interface TaskListener {
         void onTaskItemClick(Task task);
+    }
+
+
+    // Log out handler.
+
+    private void logUserOut() {
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
     }
 }
