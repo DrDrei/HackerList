@@ -3,7 +3,9 @@ package com.andreiusenka.hackerlist.entities;
 import com.andreiusenka.hackerlist.util.FirebaseInterface;
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -143,6 +145,10 @@ public class Task {
         return getDurationString();
     }
 
+    public String getScheduledDateText() {
+        SimpleDateFormat format = new SimpleDateFormat("EEE, d MMM yyyy");
+        return format.format(new Date(getScheduledDate()));
+    }
     // TODO: 2017-01-28 method for computing the duration from all the timesegments
 
 }

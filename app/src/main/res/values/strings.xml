@@ -18,4 +18,6 @@
     <!-- TaskInfo Activity -->
     <string name="title_activity_taskinfo">Details</string>
     <string name="tasktitle_prompt">Task Title</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
 </resources>

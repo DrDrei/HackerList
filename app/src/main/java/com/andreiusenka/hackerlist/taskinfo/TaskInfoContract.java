@@ -16,9 +16,17 @@ public interface TaskInfoContract {
         void showDateDialogFragment();
         void updateData();
         void setData(List<TimeSegment> times);
+
+        void setCompletionCheckbox(boolean value);
+        void setDurationText(String duration);
+        void setDateText(String date);
+        void setTitleText(String title);
     }
 
     interface Presenter extends BasePresenter{
+        void saveTask();
+        void deleteTask();
+
         void dateTextClicked();
         void setDate(int year, int month, int dayOfMonth);
         int getYear();

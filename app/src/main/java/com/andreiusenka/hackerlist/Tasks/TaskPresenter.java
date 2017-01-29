@@ -4,6 +4,7 @@ import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 
 import com.andreiusenka.hackerlist.entities.Task;
+import com.andreiusenka.hackerlist.entities.TaskSingleton;
 
 
 public class TaskPresenter implements TaskContract.Presenter  {
@@ -20,6 +21,7 @@ public class TaskPresenter implements TaskContract.Presenter  {
     }
 
     public void taskClicked(Task task) {
+        TaskSingleton.getInstance().setTask(task);
         taskView.showTaskInfo(task.getTaskID());
     }
 
@@ -46,8 +48,9 @@ public class TaskPresenter implements TaskContract.Presenter  {
     }
 
     @Override
-    public void addTaskClicked() {
+    public void addTaskClicked(Task task) {
         // TODO: add new task with firebase and such
+        TaskSingleton.getInstance().setTask(task);
         taskView.showAddNewTask();
     }
 

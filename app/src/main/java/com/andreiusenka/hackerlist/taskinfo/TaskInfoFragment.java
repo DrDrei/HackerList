@@ -24,6 +24,7 @@ import android.widget.TimePicker;
 import com.andreiusenka.hackerlist.R;
 import com.andreiusenka.hackerlist.entities.TimeSegment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,10 +57,33 @@ public class TaskInfoFragment extends Fragment implements TaskInfoContract.View 
         }
     };
 
+    @Override
+    public void setCompletionCheckbox(boolean value) {
+        completionCheckbox.setChecked(value);
+    }
+
+    @Override
+    public void setDurationText(String duration) {
+        durationTextView.setText(duration);
+    }
+
+    @Override
+    public void setDateText(String date) {
+        dateTextView.setText(date);
+    }
+
+    @Override
+    public void setTitleText(String title) {
+        taskTitleEditText.setText(title);
+    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        listAdapter = new TimesAdapter(new ArrayList<TimeSegment>(0));
+
+
     }
 
     public static TaskInfoFragment newInstance() {
@@ -76,6 +100,9 @@ public class TaskInfoFragment extends Fragment implements TaskInfoContract.View 
         toolbar = (Toolbar) root.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("");
+
+        timesList = (ListView) root.findViewById(R.id.taskinfo_times_listview);
+        timesList.setAdapter(listAdapter);
 
         taskTitleEditText = (EditText) root.findViewById(R.id.taskinfo_tasktitle_edittext);
 
@@ -145,6 +172,7 @@ public class TaskInfoFragment extends Fragment implements TaskInfoContract.View 
 
     @Override
     public void updateData() {
+
         listAdapter.notifyDataSetChanged();
     }
 

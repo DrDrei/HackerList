@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.andreiusenka.hackerlist.R;
 import com.andreiusenka.hackerlist.entities.Task;
+import com.andreiusenka.hackerlist.entities.TaskSingleton;
 import com.andreiusenka.hackerlist.login.LoginActivity;
 import com.andreiusenka.hackerlist.util.FirebaseInterface;
 import com.andreiusenka.hackerlist.util.FirebaseUtil;
@@ -162,7 +163,7 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
             public void onClick(View view) {
                 Task task = new Task("some task");
                 task.updateTask();
-                mTaskPresenter.addTaskClicked();
+                mTaskPresenter.addTaskClicked(task);
             }
         });
 

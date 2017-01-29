@@ -21,7 +21,7 @@ public interface TaskContract {
         void taskClicked(Task task);
         void onPlayButtonToggle(Task task);
         void onCheckboxClicked(Task task);
-        void addTaskClicked();
+        void addTaskClicked(Task task);
     }
 
 }
