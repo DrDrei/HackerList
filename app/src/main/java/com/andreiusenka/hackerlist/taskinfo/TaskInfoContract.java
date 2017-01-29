@@ -21,6 +21,8 @@ public interface TaskInfoContract {
         void setDurationText(String duration);
         void setDateText(String date);
         void setTitleText(String title);
+
+        void showDeleteAlert();
     }
 
     interface Presenter extends BasePresenter{

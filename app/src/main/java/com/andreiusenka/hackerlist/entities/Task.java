@@ -41,6 +41,10 @@ public class Task {
         FirebaseInterface.registerTask(this);
     }
 
+    public void removeTask() {
+        FirebaseInterface.removeTask(this);
+    }
+
     public String getTaskID() {
         return taskID;
     }

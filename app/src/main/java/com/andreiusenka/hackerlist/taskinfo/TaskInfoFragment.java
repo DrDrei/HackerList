@@ -1,8 +1,10 @@
 package com.andreiusenka.hackerlist.taskinfo;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,6 +26,7 @@ import android.widget.TimePicker;
 import com.andreiusenka.hackerlist.R;
 import com.andreiusenka.hackerlist.entities.TaskSingleton;
 import com.andreiusenka.hackerlist.entities.TimeSegment;
+import com.andreiusenka.hackerlist.util.Toasts;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,6 +79,29 @@ public class TaskInfoFragment extends Fragment implements TaskInfoContract.View 
     @Override
     public void setTitleText(String title) {
         taskTitleEditText.setText(title);
+    }
+
+    @Override
+    public void showDeleteAlert() {
+        AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
+        alertDialog.setTitle("Delete Task");
+        alertDialog.setMessage("Are you sure you want to DELETE this task?");
+        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Keep",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "DELETE",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        TaskSingleton.getInstance().getTask().removeTask();
+                        getActivity().onBackPressed();
+                        Toasts.toastMessage(getContext(), "Task Deleted.");
+                    }
+                });
+        alertDialog.show();
     }
 
     @Override
