@@ -6,13 +6,30 @@ package com.andreiusenka.hackerlist.data;
 
 public class Task {
 
+    private boolean active;
+
+    public Task() {
+        active = false;
+    }
+
+    public String getID() {
+        return "my_id";
+    }
 
     public String getTitleForListView() {
         return "Title!";
     }
 
     public boolean isActive() {
-        return true;
+        return active;
+    }
+
+    public void setActive() {
+        active = true;
+    }
+
+    public void setInactive() {
+        active = false;
     }
 
     public String getTimeForListView() {

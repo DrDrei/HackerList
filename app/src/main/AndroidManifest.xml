@@ -18,10 +18,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".Tasks.TaskActivity"
+        <activity
+            android:name=".Tasks.TaskActivity"
             android:label="@string/title_activity_tasks"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".taskinfo.TaskInfoActivity"></activity>
     </application>
 
 </manifest>

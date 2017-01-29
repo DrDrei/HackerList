@@ -12,7 +12,6 @@ import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -21,6 +20,7 @@ import com.andreiusenka.hackerlist.data.Task;
 import com.andreiusenka.hackerlist.login.LoginActivity;
 import com.andreiusenka.hackerlist.util.FirebaseUtil;
 import com.andreiusenka.hackerlist.util.LogUser;
+import com.andreiusenka.hackerlist.taskinfo.TaskInfoActivity;
 import com.andreiusenka.hackerlist.util.Toasts;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -40,10 +40,24 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
     private TaskAdapter listAdapter;
 
     private ListView taskList;
-    private TaskListener taskListener = new TaskListener() {
+    private TaskInfoListener taskInfoListener = new TaskInfoListener() {
         @Override
         public void onTaskItemClick(Task task) {
             mTaskPresenter.taskClicked(task);
+        }
+    };
+
+    private CheckboxListener checkboxListener = new CheckboxListener() {
+        @Override
+        public void onCheckbocClick(Task task) {
+            mTaskPresenter.onCheckboxClicked(task);
+        }
+    };
+
+    private PlayToggleListener playToggleListener = new PlayToggleListener() {
+        @Override
+        public void onPlayClick(Task task) {
+            mTaskPresenter.onPlayButtonToggle(task);
         }
     };
 
@@ -59,7 +73,7 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        listAdapter = new TaskAdapter(new ArrayList<Task>(0));
+        listAdapter = new TaskAdapter(new ArrayList<Task>(0), taskInfoListener, checkboxListener, playToggleListener);
 
         mAuthListener = FirebaseUtil.addLogOutListener(getActivity());
 
@@ -94,12 +108,21 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
     }
 
 
+    public void updateData() {
+        listAdapter.notifyDataSetChanged();
+    }
 
     private static class TaskAdapter extends BaseAdapter {
         private List<Task> tasks;
+        private TaskInfoListener taskInfoListener;
+        private CheckboxListener checkboxListener;
+        private PlayToggleListener playToggleListener;
 
-        public TaskAdapter(List<Task> tasks) {
+        public TaskAdapter(List<Task> tasks, TaskInfoListener taskInfoListener, CheckboxListener checkboxListener, PlayToggleListener playToggleListener) {
             this.tasks = tasks;
+            this.taskInfoListener = taskInfoListener;
+            this.checkboxListener = checkboxListener;
+            this.playToggleListener = playToggleListener;
         }
 
         public void setTasks(List<Task> tasks) {
@@ -122,6 +145,7 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
             return i;
         }
 
+
         @Override
         public View getView(int i, View view, ViewGroup viewGroup) {
             View listView = view;
@@ -130,7 +154,7 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
                 listView = inflater.inflate(R.layout.task_listitem, viewGroup, false);
             }
 
-            Task task = getItem(i);
+            final Task task = getItem(i);
 
             CheckBox checkboxView = (CheckBox) listView.findViewById(R.id.checkbox_task);
 
@@ -142,19 +166,63 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
 
             ImageButton imageButton = (ImageButton) listView.findViewById(R.id.imagebutton_taskplay);
             if (task.isActive()) {
-                imageButton.setImageResource(R.drawable.ic_pause_circle_outline_black_24dp);
+                imageButton.setImageResource(R.drawable.ic_pause_circle_outline_black_48dp);
             } else {
-                imageButton.setImageResource(R.drawable.ic_play_circle_outline_black_24dp);
+                imageButton.setImageResource(R.drawable.ic_play_circle_outline_black_48dp);
             }
 
+            listView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    taskInfoListener.onTaskItemClick(task);
+                }
+            });
 
+            checkboxView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    checkboxListener.onCheckbocClick(task);
+                }
+            });
+
+            imageButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    playToggleListener.onPlayClick(task);
+                }
+            });
 
             return listView;
         }
     }
 
-    private interface TaskListener {
+    private interface CheckboxListener {
+        void onCheckbocClick(Task task);
+    }
+
+    private interface PlayToggleListener {
+        void onPlayClick(Task task);
+    }
+
+    private interface TaskInfoListener {
         void onTaskItemClick(Task task);
     }
 
+<<<<<<< HEAD
+=======
+    public void showTaskInfo(String taskID) {
+        Intent intent = new Intent(getContext(), TaskInfoActivity.class);
+        intent.putExtra(TaskInfoActivity.TASK_ID_EXTRA, taskID);
+        startActivity(intent);
+    }
+
+    // Log out handler.
+
+    private void logUserOut() {
+        Intent intent = new Intent(getContext(), LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+    }
+>>>>>>> satyen
 }
