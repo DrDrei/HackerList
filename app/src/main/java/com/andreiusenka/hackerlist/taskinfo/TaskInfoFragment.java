@@ -78,6 +78,7 @@ public class TaskInfoFragment extends Fragment implements TaskInfoContract.View 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("");
 
         taskTitleEditText = (EditText) root.findViewById(R.id.taskinfo_tasktitle_edittext);
+
         durationTextView = (TextView) root.findViewById(R.id.taskinfo_timetext);
         durationTextView.setOnClickListener(new View.OnClickListener() {
             @Override

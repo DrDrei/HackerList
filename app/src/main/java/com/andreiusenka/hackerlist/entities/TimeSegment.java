@@ -2,6 +2,9 @@ package com.andreiusenka.hackerlist.entities;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 @IgnoreExtraProperties
 public class TimeSegment {
@@ -17,8 +20,18 @@ public class TimeSegment {
         return startTime;
     }
 
+    public String getStartTimeForListItem() {
+        SimpleDateFormat format = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
+        return format.format(new Date(getStartTime()));
+    }
+
     public Long getEndTime() {
         return endTime;
+    }
+
+    public String getEndTimeForListItem() {
+        SimpleDateFormat format = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
+        return format.format(new Date(getEndTime()));
     }
 
     public void setStartTime(Long startTime) {
