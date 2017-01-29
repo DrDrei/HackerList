@@ -208,8 +208,6 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
         void onTaskItemClick(Task task);
     }
 
-<<<<<<< HEAD
-=======
     public void showTaskInfo(String taskID) {
         Intent intent = new Intent(getContext(), TaskInfoActivity.class);
         intent.putExtra(TaskInfoActivity.TASK_ID_EXTRA, taskID);
@@ -224,5 +222,4 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
->>>>>>> satyen
 }
