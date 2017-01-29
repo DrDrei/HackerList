@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -111,6 +112,13 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
             CheckBox checkboxView = (CheckBox) listView.findViewById(R.id.checkbox_task);
             TextView textViewTitle = (TextView) listView.findViewById(R.id.textview_tasktitle);
             textViewTitle.setText(task.getTitleForListView());
+
+            ImageButton imageButton = (ImageButton) listView.findViewById(R.id.imagebutton_taskplay);
+            if (task.isActive()) {
+                imageButton.setImageResource(R.drawable.ic_pause_circle_outline_black_24dp);
+            } else {
+                imageButton.setImageResource(R.drawable.ic_play_circle_outline_black_24dp);
+            }
 
 
             return listView;

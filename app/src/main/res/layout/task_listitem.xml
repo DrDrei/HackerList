@@ -1,18 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:paddingTop="3dp"
+    android:paddingBottom="2dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
+    android:background="@color/light_grey">
 
     <RelativeLayout
-        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
+            android:paddingRight="5dp"
+            android:contentDescription="@string/taskitem_playbutton"
+            android:background="@color/white"
             android:id="@+id/imagebutton_taskplay" />
 
         <CheckBox
@@ -28,10 +37,10 @@
             android:id="@+id/textview_tasktime"
             android:layout_centerVertical="true"
             android:textSize="@dimen/taskitem_textsize"
-            android:layout_toStartOf="@+id/imagebutton_taskplay" />
+            android:layout_toStartOf="@+id/imagebutton_taskplay"
+            android:layout_toEndOf="@+id/textview_tasktitle"/>
 
         <TextView
-            android:text="test"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/textview_tasktitle"

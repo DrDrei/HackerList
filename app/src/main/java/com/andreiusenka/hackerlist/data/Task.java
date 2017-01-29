@@ -11,4 +11,8 @@ public class Task {
         return "Title!";
     }
 
+    public boolean isActive() {
+        return true;
+    }
+
 }
