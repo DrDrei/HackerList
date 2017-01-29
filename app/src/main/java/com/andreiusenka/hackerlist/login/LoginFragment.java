@@ -57,7 +57,6 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -107,12 +106,9 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         FirebaseAuth.getInstance().signInWithEmailAndPassword("drei3000@gmail.com", "rewind").addOnCompleteListener((Activity) getContext(), new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
-                if (task.isSuccessful()) {
-                    logUserIn();
-                    toastMessage("Logging in...");
-                } else {
+                if (!task.isSuccessful()) {
                     Log.i("FireBase", "signInWithEmail", task.getException());
-                    Toast.makeText(getContext(), "Authentication failed.", Toast.LENGTH_SHORT).show();
+                    toastMessage("Authentication failed.");
                 }
             }
         });
@@ -124,13 +120,6 @@ public class LoginFragment extends Fragment implements LoginContract.View {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
-
-//    public void logUserOut() {
-//        Intent intent = new Intent(getContext(), LoginActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-//        startActivity(intent);
-//    }
 
     public void toastMessage(String message) {
         Toast toast = Toast.makeText(getContext(), message, Toast.LENGTH_SHORT);

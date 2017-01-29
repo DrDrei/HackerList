@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LoginPresenter implements LoginContract.Presenter {
 
     private LoginContract.View loginView;
+    private FirebaseAuth mAuth;
 
     @Override
     public void start() {
@@ -20,6 +21,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     LoginPresenter (@NonNull LoginContract.View loginView) {
         loginView.setPresenter(this);
         this.loginView = loginView;
+//        mAuth = FirebaseAuth.getInstance();
     }
 
     public void login(EditText email, EditText password) {
