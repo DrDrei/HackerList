@@ -51,14 +51,14 @@
                 android:layout_height="wrap_content"
                 android:inputType="time"
                 android:ems="10"
-                android:id="@+id/editText" />
+                android:id="@+id/taskinfo_timetext" />
 
             <CheckBox
                 android:text="Completed"
                 android:textSize="@dimen/taskinfo_textsize"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/checkBox" />
+                android:id="@+id/taskinfo_checkbox" />
 
             <TextView
                 android:text="00:00"

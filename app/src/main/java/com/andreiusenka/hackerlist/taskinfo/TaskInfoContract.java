@@ -15,6 +15,13 @@ public interface TaskInfoContract {
 
     interface Presenter extends BasePresenter{
         void dateTextClicked();
+        void setDate(int year, int month, int dayOfMonth);
+        int getYear();
+        int getMonth();
+        int getDayOfMonth();
+        void setTime(int hourOfDay, int minute);
+        int getHourOfDay();
+        int getMinute();
     }
 
 }
