@@ -5,4 +5,11 @@ package com.andreiusenka.hackerlist.taskinfo;
  */
 
 public class TaskInfoPresenter {
+
+    private TaskInfoContract.View taskInfoView;
+
+    public TaskInfoPresenter(TaskInfoContract.View taskInfoView) {
+        this.taskInfoView = taskInfoView;
+    }
+
 }

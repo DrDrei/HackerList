@@ -17,4 +17,5 @@
 
     <!-- TaskInfo Activity -->
     <string name="title_activity_taskinfo">Details</string>
+    <string name="tasktitle_prompt">Task Title</string>
 </resources>

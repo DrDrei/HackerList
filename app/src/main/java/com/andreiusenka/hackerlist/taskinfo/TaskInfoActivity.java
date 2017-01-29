@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 
 import com.andreiusenka.hackerlist.R;
+import com.andreiusenka.hackerlist.util.ActivityUtils;
 
 public class TaskInfoActivity extends AppCompatActivity {
 
@@ -17,10 +18,15 @@ public class TaskInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.taskinfo_activity);
 
-        // Initialize toolbar
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
+        TaskInfoFragment taskInfoFragment = (TaskInfoFragment) getSupportFragmentManager().findFragmentById(R.id.contentTaskInfo);
+        if (taskInfoFragment == null) {
+            taskInfoFragment = taskInfoFragment.newInstance();
+            ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), taskInfoFragment, R.id.contentTaskInfo);
+        }
+
+        // Create the presenter
+        TaskInfoPresenter taskPresenter = new TaskInfoPresenter(taskInfoFragment);
     }
 
 
