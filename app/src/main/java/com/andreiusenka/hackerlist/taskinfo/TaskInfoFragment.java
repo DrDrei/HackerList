@@ -47,12 +47,6 @@ public class TaskInfoFragment extends Fragment implements TaskInfoContract.View 
     private TimesAdapter listAdapter;
     private ListView timesList;
 
-    private TimePickerDialog.OnTimeSetListener mOnTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
-        @Override
-        public void onTimeSet(TimePicker timePicker, int hourOfDay, int minute) {
-            mTaskInfoPresenter.setTime(hourOfDay, minute);
-        }
-    };
 
     private DatePickerDialog.OnDateSetListener mOnDateSetListener = new DatePickerDialog.OnDateSetListener() {
         @Override
@@ -282,10 +276,10 @@ public class TaskInfoFragment extends Fragment implements TaskInfoContract.View 
             final TimeSegment timeSegment = getItem(i);
 
             TextView textViewTitle = (TextView) listView.findViewById(R.id.textview_starttime);
-//            textViewTitle.setText(timeSegment.getStartTimeForListItem());
+            textViewTitle.setText(timeSegment.getStartTimeForListItem());
 
             TextView textViewTime = (TextView) listView.findViewById(R.id.textview_endtime);
-//            textViewTime.setText(timeSegment.getEndTimeForListItem());
+            textViewTime.setText(timeSegment.getEndTimeForListItem());
 
             return listView;
         }

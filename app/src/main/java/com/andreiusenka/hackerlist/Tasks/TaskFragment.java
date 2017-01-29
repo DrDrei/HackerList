@@ -125,11 +125,15 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                for (Task task: listAdapter.getTasks()) {
-                    if (task.isActive()) {
-                        task.stopSegment();
-                        task.updateTask();
+                try {
+                    for (Task task: listAdapter.getTasks()) {
+                        if (task.isActive()) {
+                            task.stopSegment();
+                            task.updateTask();
+                        }
                     }
+                } catch (Exception e) {
+                    //TODO: fixme
                 }
             }
             // TODO: 2017-01-29 set this to 1000 when demoing

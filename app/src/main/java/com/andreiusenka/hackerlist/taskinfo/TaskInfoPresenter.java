@@ -64,6 +64,7 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter {
     @Override
     public void setDate(int year, int month, int dayOfMonth) {
         task.setScheduledDate(new GregorianCalendar(year, month, dayOfMonth).getTimeInMillis());
+        taskInfoView.setDateText(task.getScheduledDateText());
     }
 
     @Override
@@ -94,21 +95,7 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter {
     public void saveTask() {
 
         task.setTitle(taskInfoView.getTitleText());
-
-        try {
-            SimpleDateFormat format = new SimpleDateFormat("EEE, d MMM yyyy");
-            Calendar cal = new GregorianCalendar();
-            cal.setTime(format.parse(taskInfoView.getDateText()));
-            task.setScheduledDate(cal.getTimeInMillis());
-        } catch (ParseException e) {
-            Toasts.toastMessage(context, "Failed to save.");
-            return;
-        }
-
-        // Duration
-
         task.setActive(taskInfoView.getCompletionCheckbox());
-
 
         task.updateTask();
         Toasts.toastMessage(context, "Saved Task.");
