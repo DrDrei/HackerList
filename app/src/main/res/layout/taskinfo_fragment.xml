@@ -1,84 +1,113 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content_login"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.andreiusenka.hackerlist.taskinfo.TaskInfoActivity">
+    tools:context="com.andreiusenka.hackerlist.taskinfo.TaskInfoActivity"
+    android:background="@color/light_grey">
 
-
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
+        android:orientation="vertical"
         android:layout_height="match_parent">
+
+        <android.support.design.widget.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay">
+                <EditText
+                    android:id="@+id/taskinfo_tasktitle_edittext"
+                    android:text="@string/tasktitle_prompt"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/taskinfo_titletextsize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:inputType="text" />
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/taskinfo_times_listview"
+            android:background="@color/white"
+            android:layout_margin="5dp"
+            android:padding="10dp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:layout_margin="5dp"
+            android:padding="10dp">
 
-            <android.support.design.widget.AppBarLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:theme="@style/AppTheme.AppBarOverlay">
-                <android.support.v7.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="?attr/colorPrimary"
-                    app:popupTheme="@style/AppTheme.PopupOverlay">
-                    <EditText
-                        android:id="@+id/taskinfo_tasktitle_edittext"
-                        android:text="@string/tasktitle_prompt"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/taskinfo_titletextsize"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:maxLines="1"
-                        android:inputType="text" />
-                </android.support.v7.widget.Toolbar>
-            </android.support.design.widget.AppBarLayout>
-
-            <ListView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-            <EditText
-                android:text="00:00"
+            <TextView
+                android:text="Duration: "
+                android:textColor="@color/black"
                 android:textSize="@dimen/taskinfo_textsize"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="time"
-                android:ems="10"
-                android:id="@+id/taskinfo_timetext" />
-
-            <CheckBox
-                android:text="Completed"
-                android:textSize="@dimen/taskinfo_textsize"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/taskinfo_checkbox" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
             <TextView
                 android:text="00:00"
+                android:textColor="@color/black"
                 android:textSize="@dimen/taskinfo_textsize"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:id="@+id/taskinfo_timetext" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@color/white"
+            android:layout_margin="5dp"
+            android:padding="10dp">
+
+            <TextView
+                android:text="Date: "
+                android:textColor="@color/black"
+                android:textSize="@dimen/taskinfo_textsize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="00:00"
+                android:textColor="@color/black"
+                android:textSize="@dimen/taskinfo_textsize"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:id="@+id/taskinfo_datetext" />
 
-
         </LinearLayout>
 
-    </RelativeLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/ic_edit_white_48dp" />
+        <CheckBox
+            android:text="Completed"
+            android:textSize="@dimen/taskinfo_textsize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/taskinfo_checkbox"
+            android:background="@color/white"
+            android:layout_margin="5dp"
+            android:padding="10dp"
+            android:paddingLeft="15dp"/>
 
-</android.support.design.widget.CoordinatorLayout>
+    </LinearLayout>
+
+</RelativeLayout>

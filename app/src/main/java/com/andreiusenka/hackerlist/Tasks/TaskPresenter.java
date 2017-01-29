@@ -59,6 +59,6 @@ public class TaskPresenter implements TaskContract.Presenter  {
     @Override
     public void addTaskClicked() {
         // TODO: add new task with firebase and such
-//        taskView.showAddNewTask();
+        taskView.showAddNewTask();
     }
 }

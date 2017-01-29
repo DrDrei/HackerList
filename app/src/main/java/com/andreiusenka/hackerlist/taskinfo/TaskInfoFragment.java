@@ -1,23 +1,29 @@
 package com.andreiusenka.hackerlist.taskinfo;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.andreiusenka.hackerlist.R;
+import com.andreiusenka.hackerlist.entities.TimeSegment;
+
+import java.util.List;
 
 /**
  * Created by satyen on 28/01/17.
@@ -72,8 +78,7 @@ public class TaskInfoFragment extends Fragment implements TaskInfoContract.View 
         durationTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), mOnTimeSetListener, mTaskInfoPresenter.getHourOfDay(), mTaskInfoPresenter.getMinute(), false);
-                timePickerDialog.show();
+                showNumberPicker();
             }
         });
 
@@ -91,6 +96,42 @@ public class TaskInfoFragment extends Fragment implements TaskInfoContract.View 
         return root;
     }
 
+    public void showNumberPicker() {
+        final Dialog dialog = new Dialog(getContext());
+        dialog.setTitle("Duration (Hours : Minutes)");
+        dialog.setContentView(R.layout.numberpickerdialog);
+        Button saveButton = (Button) dialog.findViewById(R.id.timedialog_savebutton);
+        Button cancelButton = (Button) dialog.findViewById(R.id.timedialog_cancelbutton);
+        final NumberPicker npHours = (NumberPicker) dialog.findViewById(R.id.numberpicker_hours);
+        final NumberPicker npMinutes = (NumberPicker) dialog.findViewById(R.id.numberpicker_minutes);
+
+        npHours.setMaxValue(100);
+        npHours.setMinValue(0);
+
+        npMinutes.setMaxValue(60);
+        npMinutes.setMinValue(0);
+
+        npHours.setWrapSelectorWheel(false);
+        npMinutes.setWrapSelectorWheel(false);
+
+        saveButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                mTaskInfoPresenter.setTime(npHours.getValue(), npMinutes.getValue());
+                dialog.dismiss();
+            }
+        });
+        cancelButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.show();
+    }
+
     @Override
     public void setPresenter(TaskInfoContract.Presenter presenter) {
         mTaskInfoPresenter = presenter;
@@ -98,5 +139,53 @@ public class TaskInfoFragment extends Fragment implements TaskInfoContract.View 
 
     @Override
     public void showDateDialogFragment() {
+    }
+
+    private static class TimesAdapter extends BaseAdapter {
+        private List<TimeSegment> timeSegments;
+
+        public TimesAdapter(List<TimeSegment> times) {
+            this.timeSegments = times;
+        }
+
+        public void setTasks(List<TimeSegment> times) {
+            this.timeSegments = times;
+            notifyDataSetChanged();
+        }
+
+        @Override
+        public int getCount() {
+            return timeSegments.size();
+        }
+
+        @Override
+        public TimeSegment getItem(int i) {
+            return timeSegments.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            View listView = view;
+            if (listView == null) {
+                LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
+                listView = inflater.inflate(R.layout.startend_listitem, viewGroup, false);
+            }
+
+            final TimeSegment timeSegment = getItem(i);
+
+            TextView textViewTitle = (TextView) listView.findViewById(R.id.textview_starttime);
+            textViewTitle.setText("00:00:00");//timeSegment.getStartTime());
+
+            TextView textViewTime = (TextView) listView.findViewById(R.id.textview_endtime);
+            textViewTime.setText("00:00:00");//timeSegment.getEndTime());
+
+            return listView;
+        }
     }
 }
