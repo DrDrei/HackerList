@@ -9,6 +9,8 @@ public class TaskInfoActivity extends AppCompatActivity {
 
     public static final String TASK_ID_EXTRA = "TASK_ID";
 
+    public static final int REQUEST_ADD_TASK = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

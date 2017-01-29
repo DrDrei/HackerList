@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,6 +39,7 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
     private View noTasksView;
     private LinearLayout tasksView;
     private TaskAdapter listAdapter;
+    private FloatingActionButton addTaskFab;
 
     private ListView taskList;
     private TaskInfoListener taskInfoListener = new TaskInfoListener() {
@@ -104,6 +106,17 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
         // Setup the task list
         taskList = (ListView) root.findViewById(R.id.task_activity_listview);
         taskList.setAdapter(listAdapter);
+
+        // Setup the FAB add task button
+        addTaskFab = (FloatingActionButton) root.findViewById(R.id.task_activity_addtaskfab);
+        addTaskFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mTaskPresenter.addTaskClicked();
+            }
+        });
+
+
         return root;
     }
 
@@ -212,7 +225,12 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
     public void showTaskInfo(String taskID) {
         Intent intent = new Intent(getContext(), TaskInfoActivity.class);
         intent.putExtra(TaskInfoActivity.TASK_ID_EXTRA, taskID);
-        startActivity(intent);
+        getActivity().startActivity(intent);
+    }
+
+    public void showAddNewTask() {
+        Intent intent = new Intent(getContext(), TaskInfoActivity.class);
+        getActivity().startActivityForResult(intent, TaskInfoActivity.REQUEST_ADD_TASK);
     }
 
     // Log out handler.
