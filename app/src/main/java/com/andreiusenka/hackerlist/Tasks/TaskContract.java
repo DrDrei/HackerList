@@ -11,7 +11,8 @@ public interface TaskContract {
 
 
     interface View extends BaseView<TaskContract.Presenter> {
-        void updateData(List<Task> taskList);
+        void updateData();
+        void setData(List<Task> taskList);
         void showTaskInfo(String taskID);
         void showAddNewTask();
     }

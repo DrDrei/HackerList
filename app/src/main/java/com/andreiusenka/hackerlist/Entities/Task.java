@@ -5,6 +5,7 @@ import com.google.firebase.database.IgnoreExtraProperties;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 @IgnoreExtraProperties
@@ -16,10 +17,13 @@ public class Task {
     private Boolean isActive;
     private Long scheduledDate;
     private String userID;
+    private Long tempDuration;
 
     public Task() {
         this.isCompleted = false;
         this.isActive = false;
+        this.timeSegList = new ArrayList<>();
+        this.tempDuration = new Long(0);
     }
 
     public Task(String title) {
@@ -30,6 +34,7 @@ public class Task {
         this.userID = FirebaseInterface.getUserUid();
         this.timeSegList = new ArrayList<>();
         this.scheduledDate = System.currentTimeMillis();
+        this.tempDuration = new Long(0);
         updateTask();
     }
 
@@ -49,6 +54,14 @@ public class Task {
         this.title = title;
     }
 
+    public void startSegment() {
+        this.timeSegList.add(new TimeSegment());
+    }
+
+    public void stopSegment() {
+        timeSegList.get(timeSegList.size()-1).stopTime();
+    }
+
     public List<TimeSegment> getTimeSegList() {
         return timeSegList;
     }
@@ -56,6 +69,43 @@ public class Task {
     public void setTimeSegList(List<TimeSegment> timeSegList) {
         this.timeSegList = timeSegList;
     }
+
+    public Long getDurationMillis() {
+        Long duration = new Long(0);
+        for (TimeSegment seg: timeSegList) {
+            duration += seg.getTimeDifference();
+        }
+        this.tempDuration = duration;
+        return duration;
+    }
+
+    public String getDurationString() {
+        Long duration = getDurationMillis();
+
+        return String.format("%02d:%02d:%02d",
+                TimeUnit.MILLISECONDS.toHours(duration),
+                TimeUnit.MILLISECONDS.toMinutes(duration) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(duration)) ,
+                TimeUnit.MILLISECONDS.toSeconds(duration) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration)) -
+                        TimeUnit.HOURS.toSeconds(TimeUnit.MILLISECONDS.toHours(duration))
+        );
+    }
+
+    // this is called every second on the client side to prevent excessive firebase calls.
+    public String getClientDurationString() {
+        Long duration = tempDuration;
+
+        tempDuration += 1;
+        return String.format("%02d:%02d:%02d",
+                TimeUnit.MILLISECONDS.toHours(duration),
+                TimeUnit.MILLISECONDS.toMinutes(duration) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(duration)) ,
+                TimeUnit.MILLISECONDS.toSeconds(duration) -
+                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration)) -
+                        TimeUnit.HOURS.toSeconds(TimeUnit.MILLISECONDS.toHours(duration))
+        );
+    }
+
+
 
     public Boolean getCompleted() {
         return isCompleted;
@@ -90,7 +140,7 @@ public class Task {
     }
 
     public String getTimeForListView() {
-        return "00:00:00";
+        return getDurationString();
     }
 
     // TODO: 2017-01-28 method for computing the duration from all the timesegments
