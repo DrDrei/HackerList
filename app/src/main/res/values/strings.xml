@@ -15,4 +15,6 @@
     <string name="toolbar_logout">Log Out</string>
     <string name="title_activity_deleteme">deletemeActivity</string>
 
+    <!-- TaskInfo Activity -->
+    <string name="title_activity_taskinfo">Details</string>
 </resources>
