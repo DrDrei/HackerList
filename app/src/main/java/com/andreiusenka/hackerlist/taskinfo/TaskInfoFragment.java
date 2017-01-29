@@ -184,7 +184,7 @@ public class TaskInfoFragment extends Fragment implements TaskInfoContract.View 
         {
             @Override
             public void onClick(View v) {
-                mTaskInfoPresenter.setTime(npHours.getValue(), npMinutes.getValue());
+                mTaskInfoPresenter.setTime(new Long(npHours.getValue()), new Long(npMinutes.getValue()));
                 dialog.dismiss();
             }
         });

@@ -19,6 +19,7 @@ public class Task {
     private Boolean isActive;
     private Long scheduledDate;
     private String userID;
+    private Long duration;
 
     public Task() {
         this.isCompleted = false;
@@ -134,5 +135,13 @@ public class Task {
         return format.format(new Date(getScheduledDate()));
     }
     // TODO: 2017-01-28 method for computing the duration from all the timesegments
+
+    public Long getDuration() {
+        return duration;
+    }
+
+    public void setDuration(Long duration) {
+        this.duration = duration;
+    }
 
 }
