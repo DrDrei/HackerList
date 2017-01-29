@@ -101,6 +101,8 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
         //TODO: remove me
         ArrayList<Task> test = new ArrayList<>();
         test.add(new Task());
+        test.add(new Task());
+        test.add(new Task());
         listAdapter.setTasks(test);
 
         // Setup the task list
