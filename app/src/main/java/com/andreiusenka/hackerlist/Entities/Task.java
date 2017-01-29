@@ -3,8 +3,8 @@ package com.andreiusenka.hackerlist.entities;
 import com.andreiusenka.hackerlist.util.FirebaseInterface;
 import com.google.firebase.database.IgnoreExtraProperties;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 @IgnoreExtraProperties
@@ -14,8 +14,13 @@ public class Task {
     private List<TimeSegment> timeSegList;
     private Boolean isCompleted;
     private Boolean isActive;
-    private Map<String, String> scheduledDate;
+    private Long scheduledDate;
     private String userID;
+
+    public Task() {
+        this.isCompleted = false;
+        this.isActive = false;
+    }
 
     public Task(String title) {
         this.title = title;
@@ -23,6 +28,8 @@ public class Task {
         this.isCompleted = false;
         this.isActive = false;
         this.userID = FirebaseInterface.getUserUid();
+        this.timeSegList = new ArrayList<>();
+        this.scheduledDate = System.currentTimeMillis();
         updateTask();
     }
 
@@ -58,11 +65,11 @@ public class Task {
         isCompleted = completed;
     }
 
-    public Map<String, String> getScheduledDate() {
+    public Long getScheduledDate() {
         return scheduledDate;
     }
 
-    public void setScheduledDate(Map<String, String> scheduledDate) {
+    public void setScheduledDate(Long scheduledDate) {
         this.scheduledDate = scheduledDate;
     }
 
@@ -74,28 +81,12 @@ public class Task {
         this.userID = userID;
     }
 
-    public boolean isComplete() {
-        return isCompleted;
-    }
-
-    public void setComplete() {
-        isCompleted = true;
-    }
-
-    public void setIncomplete() {
-        isCompleted = false;
-    }
-
     public boolean isActive() {
         return isActive;
     }
 
-    public void setActive() {
-        isActive = true;
-    }
-
-    public void setInactive() {
-        isActive = false;
+    public void setActive(Boolean completed) {
+        isActive = completed;
     }
 
     public String getTimeForListView() {

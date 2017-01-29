@@ -139,6 +139,8 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
         addTaskFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Task task = new Task("some task");
+                task.updateTask();
                 mTaskPresenter.addTaskClicked();
             }
         });
@@ -197,7 +199,7 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
             final Task task = getItem(i);
 
             CheckBox checkboxView = (CheckBox) listView.findViewById(R.id.checkbox_task);
-            checkboxView.setChecked(task.isComplete());
+            checkboxView.setChecked(task.getCompleted());
 
             TextView textViewTitle = (TextView) listView.findViewById(R.id.textview_tasktitle);
             textViewTitle.setText(task.getTitle());

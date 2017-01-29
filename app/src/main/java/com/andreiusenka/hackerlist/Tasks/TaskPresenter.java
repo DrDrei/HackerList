@@ -37,9 +37,9 @@ public class TaskPresenter implements TaskContract.Presenter  {
     @Override
     public void onPlayButtonToggle(Task task) {
         if (task.isActive()) {
-            task.setInactive();
+            task.setActive(false);
         } else {
-            task.setActive();
+            task.setActive(true);
         }
         task.updateTask();
 //        taskView.updateData(taskList);
@@ -47,10 +47,10 @@ public class TaskPresenter implements TaskContract.Presenter  {
 
     @Override
     public void onCheckboxClicked(Task task) {
-        if (task.isComplete()) {
-            task.setIncomplete();
+        if (task.getCompleted()) {
+            task.setCompleted(false);
         } else {
-            task.setComplete();
+            task.setCompleted(true);
         }
         task.updateTask();
 //        taskView.updateData(taskList);
