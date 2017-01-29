@@ -38,7 +38,6 @@ public class FirebaseInterface {
         }
     }
 
-
     static public String registerTaskId() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference(Utils.FIREBASE_TASKS);
@@ -51,9 +50,7 @@ public class FirebaseInterface {
         } catch (Exception e) {
             Log.i("FB", "something went wrong", e);
         }
-
     }
-
 
     static public DatabaseReference getUserTaskRef(Task task) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
