@@ -1,6 +1,9 @@
 package com.andreiusenka.hackerlist.Tasks;
 
+import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -23,6 +26,7 @@ import com.andreiusenka.hackerlist.login.LoginActivity;
 import com.andreiusenka.hackerlist.util.FirebaseInterface;
 import com.andreiusenka.hackerlist.util.FirebaseUtil;
 import com.andreiusenka.hackerlist.taskinfo.TaskInfoActivity;
+import com.andreiusenka.hackerlist.util.Toasts;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -52,6 +56,11 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
     private TaskInfoListener taskInfoListener = new TaskInfoListener() {
         @Override
         public void onTaskItemClick(Task task) {
+            mTaskPresenter.taskClicked(task);
+        }
+        @Override
+        public void onTaskItemLongClick(Task task) {
+            Toasts.toastMessage(getContext(), "Long Click");
             mTaskPresenter.taskClicked(task);
         }
     };
@@ -124,7 +133,7 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
                 }
             }
             // TODO: 2017-01-29 set this to 1000 when demoing
-        }, 0, 5000);
+        }, 0, 1000);
     }
 
     @Override
@@ -235,7 +244,8 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
             TextView textViewTime = (TextView) listView.findViewById(R.id.textview_tasktime);
             textViewTime.setText(task.getTimeForListView());
 
-            ImageButton imageButton = (ImageButton) listView.findViewById(R.id.imagebutton_taskplay);
+            final ImageButton imageButton = (ImageButton) listView.findViewById(R.id.imagebutton_taskplay);
+
             if (task.isActive()) {
                 imageButton.setImageResource(R.drawable.ic_pause_circle_outline_black_48dp);
             } else {
@@ -253,6 +263,8 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
                 @Override
                 public void onClick(View view) {
                     checkboxListener.onCheckbocClick(task);
+                    checkboxVerification(task, imageButton);
+
                 }
             });
 
@@ -262,9 +274,21 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
                     playToggleListener.onPlayClick(task);
                 }
             });
-
             return listView;
         }
+        private void checkboxVerification(Task task, ImageButton imageButton) {
+            if (task.getCompleted()) {
+                imageButton.setEnabled(false);
+                imageButton.setAlpha((float) 0.25);
+                task.stopSegment();
+                task.setActive(false);
+                task.updateTask();
+            } else {
+                imageButton.setAlpha((float) 1.0);
+                imageButton.setEnabled(true);
+            }
+        }
+
     }
 
     private interface CheckboxListener {
@@ -277,6 +301,8 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
 
     private interface TaskInfoListener {
         void onTaskItemClick(Task task);
+
+        void onTaskItemLongClick(Task task);
     }
 
     public void showTaskInfo(String taskID) {

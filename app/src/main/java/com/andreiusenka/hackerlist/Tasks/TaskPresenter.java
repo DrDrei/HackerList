@@ -54,5 +54,5 @@ public class TaskPresenter implements TaskContract.Presenter  {
         taskView.showAddNewTask();
     }
 
-
+    
 }

@@ -1,8 +1,7 @@
 package com.andreiusenka.hackerlist.entities;
 
-/**
- * Created by drei on 2017-01-29.
- */
+
+
 public class TaskSingleton {
 
     private Task tempTask;

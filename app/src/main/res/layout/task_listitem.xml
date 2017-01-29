@@ -24,7 +24,9 @@
             android:id="@+id/checkbox_task"
             android:paddingRight="10dp"
             android:layout_centerVertical="true"
-            android:layout_alignParentStart="true" />
+            android:layout_alignParentStart="true"
+            android:scaleX="1.5"
+            android:scaleY="1.5"/>
 
         <TextView
             android:layout_width="wrap_content"
