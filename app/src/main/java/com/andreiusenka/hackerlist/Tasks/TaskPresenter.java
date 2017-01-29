@@ -1,29 +1,18 @@
 package com.andreiusenka.hackerlist.Tasks;
 
+import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 
 import com.andreiusenka.hackerlist.entities.Task;
-import com.andreiusenka.hackerlist.util.FirebaseInterface;
-
-import java.util.ArrayList;
 
 
 public class TaskPresenter implements TaskContract.Presenter  {
-
     private TaskContract.View taskView;
-//    private ArrayList<Task> taskList = new ArrayList<>();
 
     @Override
     public void start() {
-//        loadTasks();
     }
 
-//    private void loadTasks() {
-//        Task task = new Task("some task");
-//        taskList.add(task);
-//        FirebaseInterface.pullUserTasks();
-//        taskView.updateData(taskList);
-//    }
 
     TaskPresenter (@NonNull TaskContract.View taskView) {
         taskView.setPresenter(this);
@@ -35,14 +24,15 @@ public class TaskPresenter implements TaskContract.Presenter  {
     }
 
     @Override
-    public void onPlayButtonToggle(Task task) {
+    public void onPlayButtonToggle(final Task task) {
         if (task.isActive()) {
             task.setActive(false);
+            task.stopSegment();
         } else {
             task.setActive(true);
+            task.startSegment();
         }
         task.updateTask();
-//        taskView.updateData(taskList);
     }
 
     @Override
@@ -53,7 +43,6 @@ public class TaskPresenter implements TaskContract.Presenter  {
             task.setCompleted(true);
         }
         task.updateTask();
-//        taskView.updateData(taskList);
     }
 
     @Override
@@ -61,4 +50,6 @@ public class TaskPresenter implements TaskContract.Presenter  {
         // TODO: add new task with firebase and such
         taskView.showAddNewTask();
     }
+
+
 }

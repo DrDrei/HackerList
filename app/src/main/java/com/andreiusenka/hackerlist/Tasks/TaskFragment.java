@@ -2,6 +2,7 @@ package com.andreiusenka.hackerlist.Tasks;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -26,7 +27,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -95,7 +95,7 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
                 for (DataSnapshot taskSnapshot: dataSnapshot.getChildren()) {
                     Task task = taskSnapshot.getValue(Task.class);
                     taskArrayList.add(task);
-                    updateData(taskArrayList);
+                    setData(taskArrayList);
                 }
             }
 
@@ -104,7 +104,9 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
                 // TODO: 2017-01-29 maybe add something?
             }
         });
+
     }
+
 
     @Override
     public void onPause() {
@@ -148,8 +150,10 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
         return root;
     }
 
-
-    public void updateData(List<Task> tasks) {
+    public void updateData() {
+        listAdapter.notifyDataSetChanged();
+    }
+    public void setData(List<Task> tasks) {
         listAdapter.setTasks(tasks);
         listAdapter.notifyDataSetChanged();
     }
@@ -170,6 +174,10 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
         public void setTasks(List<Task> tasks) {
             this.tasks = tasks;
             notifyDataSetChanged();
+        }
+
+        public List<Task> getTasks() {
+            return this.tasks;
         }
 
         @Override
