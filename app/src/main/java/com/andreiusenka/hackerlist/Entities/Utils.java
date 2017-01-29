@@ -6,6 +6,6 @@ package com.andreiusenka.hackerlist.entities;
 
 public class Utils {
     public static final String FIREBASE_URL = "https://hackerlist-7b172.firebaseio.com/";
-    public static final String FIREBASE_USERS = "users/";
-    public static final String FIREBASE_TASKS = "tasks/";
+    public static final String FIREBASE_USERS = "users";
+    public static final String FIREBASE_TASKS = "tasks";
 }

@@ -1,21 +1,38 @@
 package com.andreiusenka.hackerlist.entities;
 
-import java.util.HashMap;
+import com.google.firebase.database.IgnoreExtraProperties;
+import com.google.firebase.database.ServerValue;
 
-/**
- * Created by drei on 2017-01-28.
- */
+import java.util.Map;
 
+@IgnoreExtraProperties
 public class User {
     private String email;
-    private HashMap<String, Object> dateJoined;
+    private Map<String, String> dateJoined;
+
+    // TODO: 2017-01-28 add any other settings that are required here. 
 
     public User() {}
 
-    public User(String email, HashMap<String, Object> dateJoined) {
+    public User(String email) {
         this.email = email;
-        this.dateJoined = dateJoined;
+        this.dateJoined = ServerValue.TIMESTAMP;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Map<String, String> getDateJoined() {
+        return dateJoined;
+    }
+
+    public void setDateJoined(Map<String, String> dateJoined) {
+        this.dateJoined = dateJoined;
+    }
 
 }

@@ -1,16 +1,10 @@
 package com.andreiusenka.hackerlist.util;
 
 import android.app.Activity;
-import android.app.Application;
 import android.support.annotation.NonNull;
-import android.support.v4.app.Fragment;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-/**
- * Created by drei on 2017-01-28.
- */
 
 public class FirebaseUtil {
 

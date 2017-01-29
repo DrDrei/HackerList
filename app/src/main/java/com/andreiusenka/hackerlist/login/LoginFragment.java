@@ -14,6 +14,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.andreiusenka.hackerlist.R;
+import com.andreiusenka.hackerlist.entities.User;
+import com.andreiusenka.hackerlist.util.FirebaseInterface;
 import com.andreiusenka.hackerlist.util.Toasts;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -121,7 +123,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
     }
 
     @Override
-    public void firebaseRegister(String emailText, String passwordText) {
+    public void firebaseRegister(final String emailText, String passwordText) {
         FirebaseAuth.getInstance().createUserWithEmailAndPassword(emailText, passwordText).addOnCompleteListener((Activity) getContext(), new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -139,6 +141,10 @@ public class LoginFragment extends Fragment implements LoginContract.View {
                     } catch (Exception e) {
                         Toasts.toastMessage(getContext(), "Something is wrong...");
                     }
+                } else {
+                    // init the user on firebase here...
+                    User user = new User(emailText);
+                    FirebaseInterface.registerUser(user);
                 }
             }
         });
