@@ -46,7 +46,7 @@
             <EditText
                 android:id="@+id/taskinfo_tasktitle_edittext"
                 android:text="@string/tasktitle_prompt"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="@dimen/taskinfo_titletextsize"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

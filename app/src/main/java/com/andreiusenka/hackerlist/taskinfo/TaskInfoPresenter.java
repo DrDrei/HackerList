@@ -6,6 +6,8 @@ import com.andreiusenka.hackerlist.entities.Task;
 import com.andreiusenka.hackerlist.entities.TaskSingleton;
 import com.andreiusenka.hackerlist.util.Toasts;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -88,6 +90,24 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter {
 
     @Override
     public void saveTask() {
+
+        task.setTitle(taskInfoView.getTitleText());
+
+        try {
+            SimpleDateFormat format = new SimpleDateFormat("EEE, d MMM yyyy");
+            Calendar cal = new GregorianCalendar();
+            cal.setTime(format.parse(taskInfoView.getDateText()));
+            task.setScheduledDate(cal.getTimeInMillis());
+        } catch (ParseException e) {
+            Toasts.toastMessage(context, "Failed to save.");
+            return;
+        }
+
+        // Duration
+
+        task.setActive(taskInfoView.getCompletionCheckbox());
+
+
         task.updateTask();
         Toasts.toastMessage(context, "Saved Task.");
     }

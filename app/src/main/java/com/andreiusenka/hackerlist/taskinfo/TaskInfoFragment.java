@@ -174,18 +174,43 @@ public class TaskInfoFragment extends Fragment implements TaskInfoContract.View 
 
     @Override
     public void updateData() {
-
         listAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void setData(List<TimeSegment> times) {
         listAdapter.setTimes(times);
+        updateData();
+        if (times.isEmpty()) {
+            timesList.setVisibility(View.GONE);
+        } else {
+            timesList.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
     public void setPresenter(TaskInfoContract.Presenter presenter) {
         mTaskInfoPresenter = presenter;
+    }
+
+    @Override
+    public boolean getCompletionCheckbox() {
+        return completionCheckbox.isChecked();
+    }
+
+    @Override
+    public String getDurationText() {
+        return (String) durationTextView.getText();
+    }
+
+    @Override
+    public String getDateText() {
+        return (String) dateTextView.getText();
+    }
+
+    @Override
+    public String getTitleText() {
+        return taskTitleEditText.getText().toString();
     }
 
     @Override

@@ -21,6 +21,11 @@ public interface TaskInfoContract {
         void setDurationText(String duration);
         void setDateText(String date);
         void setTitleText(String title);
+
+        boolean getCompletionCheckbox();
+        String getDurationText();
+        String getDateText();
+        String getTitleText();
     }
 
     interface Presenter extends BasePresenter{
