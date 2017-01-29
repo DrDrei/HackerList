@@ -141,8 +141,12 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
             Task task = getItem(i);
 
             CheckBox checkboxView = (CheckBox) listView.findViewById(R.id.checkbox_task);
+
             TextView textViewTitle = (TextView) listView.findViewById(R.id.textview_tasktitle);
             textViewTitle.setText(task.getTitleForListView());
+
+            TextView textViewTime = (TextView) listView.findViewById(R.id.textview_tasktime);
+            textViewTime.setText(task.getTimeForListView());
 
             ImageButton imageButton = (ImageButton) listView.findViewById(R.id.imagebutton_taskplay);
             if (task.isActive()) {
@@ -150,6 +154,7 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
             } else {
                 imageButton.setImageResource(R.drawable.ic_play_circle_outline_black_24dp);
             }
+
 
 
             return listView;

@@ -15,4 +15,8 @@ public class Task {
         return true;
     }
 
+    public String getTimeForListView() {
+        return "00:00:00";
+    }
+
 }
