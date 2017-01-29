@@ -19,6 +19,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthException;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
 import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
@@ -107,8 +108,6 @@ public class LoginFragment extends Fragment implements LoginContract.View {
                     Log.i("FireBase", "signing in with email", task.getException());
                     try {
                         throw task.getException();
-                    } catch (FirebaseAuthWeakPasswordException e) {
-                        Toasts.toastMessage(getContext(), "Weak password, enter 6+ characters.");
                     } catch (FirebaseAuthInvalidCredentialsException e) {
                         Toasts.toastMessage(getContext(), "Invalid email/pass combination.");
                     } catch (FirebaseAuthInvalidUserException e) {
@@ -128,9 +127,9 @@ public class LoginFragment extends Fragment implements LoginContract.View {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (!task.isSuccessful()) {
                     Log.i("FireBaseException", "registering with email", task.getException());
-
+                    // TODO: 2017-01-28 fix the firebase exception problem...
                     try {
-                        throw task.getException();
+                        throw (FirebaseAuthException) task.getException();
                     } catch (FirebaseAuthWeakPasswordException e) {
                         Toasts.toastMessage(getContext(), "Weak password, enter 6+ characters.");
                     } catch (FirebaseAuthInvalidCredentialsException e) {
@@ -138,7 +137,7 @@ public class LoginFragment extends Fragment implements LoginContract.View {
                     } catch (FirebaseAuthInvalidUserException e) {
                         Toasts.toastMessage(getContext(), "Email not found.");
                     } catch (Exception e) {
-                        Toasts.toastMessage(getContext(), "Authentication failed. Check connection.");
+                        Toasts.toastMessage(getContext(), "Something is wrong...");
                     }
                 }
             }
