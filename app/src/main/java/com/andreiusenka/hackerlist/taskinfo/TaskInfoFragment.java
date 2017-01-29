@@ -79,23 +79,29 @@ public class TaskInfoFragment extends Fragment implements TaskInfoContract.View 
     public void showDeleteAlert() {
         AlertDialog alertDialog = new AlertDialog.Builder(getContext()).create();
         alertDialog.setTitle("Delete Task");
-        alertDialog.setMessage("Are you sure you want to DELETE this task?");
+        alertDialog.setMessage("Are you sure you want to DELETE?");
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "DELETE",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        TaskSingleton.getInstance().getTask().removeTask();
+                        TaskSingleton.getInstance().setTask(null);
+                        Toasts.toastMessage(getContext(), "Task Deleted.");
+                        returnToPrevious();
+                    }
+                });
         alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "Keep",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.dismiss();
                     }
                 });
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "DELETE",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        TaskSingleton.getInstance().getTask().removeTask();
-                        getActivity().onBackPressed();
-                        Toasts.toastMessage(getContext(), "Task Deleted.");
-                    }
-                });
         alertDialog.show();
+    }
+
+    @Override
+    public void returnToPrevious() {
+        getActivity().onBackPressed();
     }
 
     @Override

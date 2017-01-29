@@ -99,6 +99,8 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter {
 
         task.updateTask();
         Toasts.toastMessage(context, "Saved Task.");
+
+        taskInfoView.returnToPrevious();
     }
 
     @Override

@@ -27,6 +27,8 @@ public interface TaskInfoContract {
         String getDateText();
         String getTitleText();
         void showDeleteAlert();
+
+        void returnToPrevious();
     }
 
     interface Presenter extends BasePresenter{
