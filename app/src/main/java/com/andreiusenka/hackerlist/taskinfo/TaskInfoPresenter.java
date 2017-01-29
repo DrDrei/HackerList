@@ -1,6 +1,8 @@
 package com.andreiusenka.hackerlist.taskinfo;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 
 import com.andreiusenka.hackerlist.entities.Task;
 import com.andreiusenka.hackerlist.entities.TaskSingleton;
@@ -114,6 +116,6 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter {
 
     @Override
     public void deleteTask() {
-
+        taskInfoView.showDeleteAlert();
     }
 }
