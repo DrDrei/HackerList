@@ -25,8 +25,8 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter {
     private Context context;
 
     @Override
-    public void setTime(int hourOfDay, int minute) {
-
+    public void setTime(Long hourOfDay, Long minute) {
+        task.setDuration(minute*60 + hourOfDay*3600);
     }
 
     @Override

@@ -40,7 +40,7 @@ public interface TaskInfoContract {
         int getYear();
         int getMonth();
         int getDayOfMonth();
-        void setTime(int hourOfDay, int minute);
+        void setTime(Long hourOfDay, Long minute);
         int getHourOfDay();
         int getMinute();
     }
