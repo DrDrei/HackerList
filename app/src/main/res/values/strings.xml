@@ -3,7 +3,8 @@
 
     <!-- Login Activity -->
     <string name="title_activity_login">LoginActivity</string>
-    <string name="button_login">Login</string>
+    <string name="button_login">Log In</string>
+    <string name="button_register">Register</string>
     <string name="email_prompt">Email</string>
     <string name="password_prompt">Password</string>
 

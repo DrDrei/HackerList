@@ -16,14 +16,14 @@ import java.util.List;
 public interface LoginContract {
 
     interface View extends BaseView<Presenter> {
-//        void logUserIn();
         void toastMessage(String message);
         void firebaseLogin(String email, String password);
+        void firebaseRegister(String emailText, String passwordText);
     }
 
     interface Presenter extends BasePresenter {
         void login(EditText email, EditText password);
-
+        void register(EditText emailEditText, EditText passwordEditText);
     }
 
 

@@ -19,7 +19,7 @@ public class LoginPresenter implements LoginContract.Presenter {
 
     public void login(EditText email, EditText password) {
         String emailText = email.getText().toString().trim();
-        String passwordText = email.getText().toString().trim();
+        String passwordText = password.getText().toString().trim();
 
 
         if (emailText.isEmpty() || passwordText.isEmpty()) {
@@ -29,6 +29,18 @@ public class LoginPresenter implements LoginContract.Presenter {
         }
 
 
+    }
+
+    @Override
+    public void register(EditText emailEditText, EditText passwordEditText) {
+        String emailText = emailEditText.getText().toString().trim();
+        String passwordText = passwordEditText.getText().toString().trim();
+
+        if (emailText.isEmpty() || passwordText.isEmpty()) {
+            loginView.toastMessage("Please fill in all fields.");
+        } else {
+            loginView.firebaseRegister(emailText, passwordText);
+        }
     }
 
 
