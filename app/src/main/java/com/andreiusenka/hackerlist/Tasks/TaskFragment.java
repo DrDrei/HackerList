@@ -105,7 +105,7 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 List<Task> taskArrayList = new ArrayList<>();
-                for (DataSnapshot taskSnapshot: dataSnapshot.getChildren()) {
+                for (DataSnapshot taskSnapshot : dataSnapshot.getChildren()) {
                     Task task = taskSnapshot.getValue(Task.class);
                     taskArrayList.add(task);
                     setData(taskArrayList);
@@ -182,10 +182,16 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
 
     public void updateData() {
         listAdapter.notifyDataSetChanged();
+
+        if (listAdapter.getTasks().isEmpty()) {
+            taskList.setVisibility(View.GONE);
+        } else {
+            taskList.setVisibility(View.VISIBLE);
+        }
     }
     public void setData(List<Task> tasks) {
         listAdapter.setTasks(tasks);
-        listAdapter.notifyDataSetChanged();
+        updateData();
     }
 
     private static class TaskAdapter extends BaseAdapter {

@@ -95,7 +95,7 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter {
     public void saveTask() {
 
         task.setTitle(taskInfoView.getTitleText());
-        task.setActive(taskInfoView.getCompletionCheckbox());
+        task.setCompleted(taskInfoView.getCompletionCheckbox());
 
         task.updateTask();
         Toasts.toastMessage(context, "Saved Task.");
