@@ -3,16 +3,10 @@ package com.andreiusenka.hackerlist.login;
 import android.support.annotation.NonNull;
 import android.widget.EditText;
 
-import com.google.firebase.auth.FirebaseAuth;
-
-/**
- * Created by satyen on 28/01/17.
- */
 
 public class LoginPresenter implements LoginContract.Presenter {
 
     private LoginContract.View loginView;
-    private FirebaseAuth mAuth;
 
     @Override
     public void start() {
@@ -21,7 +15,6 @@ public class LoginPresenter implements LoginContract.Presenter {
     LoginPresenter (@NonNull LoginContract.View loginView) {
         loginView.setPresenter(this);
         this.loginView = loginView;
-//        mAuth = FirebaseAuth.getInstance();
     }
 
     public void login(EditText email, EditText password) {

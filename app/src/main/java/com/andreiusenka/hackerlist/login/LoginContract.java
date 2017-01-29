@@ -16,7 +16,7 @@ import java.util.List;
 public interface LoginContract {
 
     interface View extends BaseView<Presenter> {
-        void logUserIn();
+//        void logUserIn();
         void toastMessage(String message);
         void firebaseLogin(String email, String password);
     }

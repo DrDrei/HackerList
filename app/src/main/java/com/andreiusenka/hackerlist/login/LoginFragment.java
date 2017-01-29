@@ -1,7 +1,6 @@
 package com.andreiusenka.hackerlist.login;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,7 +14,8 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.andreiusenka.hackerlist.R;
-import com.andreiusenka.hackerlist.Tasks.TaskActivity;
+import com.andreiusenka.hackerlist.util.LogUser;
+import com.andreiusenka.hackerlist.util.Toasts;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -63,14 +63,9 @@ public class LoginFragment extends Fragment implements LoginContract.View {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    // User is signed in
-
-                    toastMessage("Logging user in...");
-                    logUserIn();
-                } else {
-                    toastMessage("Logging user out...");
-                    // User is signed out
-//                    logUserOut();
+                    // Sign user in
+                    Toasts.toastMessage(getContext(), "Logging in...");
+                    LogUser.logUserIn(getActivity());
                 }
             }
         };
@@ -93,11 +88,6 @@ public class LoginFragment extends Fragment implements LoginContract.View {
             }
         });
 
-        // TODO: 2017-01-28 finish adding the toolbar log out
-//        if (id == R.id.action_logout) {
-//            return true;
-//        }
-
         return root;
     }
 
@@ -108,17 +98,10 @@ public class LoginFragment extends Fragment implements LoginContract.View {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (!task.isSuccessful()) {
                     Log.i("FireBase", "signInWithEmail", task.getException());
-                    toastMessage("Authentication failed.");
+                    Toasts.toastMessage(getContext(), "Authentication failed.");
                 }
             }
         });
-    }
-
-    public void logUserIn() {
-        Intent intent = new Intent(getContext(), TaskActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
     }
 
     public void toastMessage(String message) {
