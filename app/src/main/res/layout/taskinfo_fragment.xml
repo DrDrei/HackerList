@@ -24,25 +24,36 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 app:popupTheme="@style/AppTheme.PopupOverlay">
-                <EditText
-                    android:id="@+id/taskinfo_tasktitle_edittext"
-                    android:text="@string/tasktitle_prompt"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/taskinfo_titletextsize"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:inputType="text" />
+
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
 
-        <ListView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/taskinfo_times_listview"
+            android:orientation="horizontal"
             android:background="@color/white"
             android:layout_margin="5dp"
-            android:padding="10dp"/>
+            android:padding="10dp">
+
+            <TextView
+                android:text="Title: "
+                android:textColor="@color/black"
+                android:textSize="@dimen/taskinfo_textsize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/taskinfo_tasktitle_edittext"
+                android:text="@string/tasktitle_prompt"
+                android:textColor="@color/white"
+                android:textSize="@dimen/taskinfo_titletextsize"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:inputType="text" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -96,7 +107,6 @@
 
         </LinearLayout>
 
-
         <CheckBox
             android:text="Completed"
             android:textSize="@dimen/taskinfo_textsize"
@@ -107,6 +117,14 @@
             android:layout_margin="5dp"
             android:padding="10dp"
             android:paddingLeft="15dp"/>
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/taskinfo_times_listview"
+            android:background="@color/white"
+            android:layout_margin="5dp"
+            android:padding="10dp"/>
 
     </LinearLayout>
 
