@@ -29,6 +29,8 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class TaskFragment extends Fragment implements TaskContract.View  {
@@ -44,6 +46,7 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
 
     private ListView taskList;
     private ValueEventListener tasksEventListener;
+    private Timer timer;
 
     private TaskInfoListener taskInfoListener = new TaskInfoListener() {
         @Override
@@ -104,14 +107,30 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
                 // TODO: 2017-01-29 maybe add something?
             }
         });
-
+        setTimer();
     }
 
+    private void setTimer() {
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                for (Task task: listAdapter.getTasks()) {
+                    if (task.isActive()) {
+                        task.stopSegment();
+                        task.updateTask();
+                    }
+                }
+            }
+            // TODO: 2017-01-29 set this to 1000 when demoing
+        }, 0, 5000);
+    }
 
     @Override
     public void onPause() {
         super.onPause();
         FirebaseInterface.getUserTasksRef().removeEventListener(tasksEventListener);
+        timer.cancel();
     }
 
     @Override
