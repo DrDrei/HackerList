@@ -19,6 +19,8 @@ import android.widget.TextView;
 import com.andreiusenka.hackerlist.R;
 import com.andreiusenka.hackerlist.data.Task;
 import com.andreiusenka.hackerlist.login.LoginActivity;
+import com.andreiusenka.hackerlist.util.FirebaseUtil;
+import com.andreiusenka.hackerlist.util.LogUser;
 import com.andreiusenka.hackerlist.util.Toasts;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -59,17 +61,7 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
         super.onCreate(savedInstanceState);
         listAdapter = new TaskAdapter(new ArrayList<Task>(0));
 
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user == null) {
-                    // Sign user out
-                    Toasts.toastMessage(getContext(), "Logging out...");
-                    logUserOut();
-                }
-            }
-        };
+        mAuthListener = FirebaseUtil.addLogOutListener(getActivity());
 
     }
 
@@ -160,13 +152,4 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
         void onTaskItemClick(Task task);
     }
 
-
-    // Log out handler.
-
-    private void logUserOut() {
-        Intent intent = new Intent(getContext(), LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
-    }
 }
