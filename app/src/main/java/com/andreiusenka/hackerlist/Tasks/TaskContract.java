@@ -2,14 +2,16 @@ package com.andreiusenka.hackerlist.Tasks;
 
 import com.andreiusenka.hackerlist.BasePresenter;
 import com.andreiusenka.hackerlist.BaseView;
-import com.andreiusenka.hackerlist.data.Task;
+import com.andreiusenka.hackerlist.entities.Task;
+
+import java.util.List;
 
 
 public interface TaskContract {
 
 
     interface View extends BaseView<TaskContract.Presenter> {
-        void updateData();
+        void updateData(List<Task> taskList);
         void showTaskInfo(String taskID);
         void showAddNewTask();
     }

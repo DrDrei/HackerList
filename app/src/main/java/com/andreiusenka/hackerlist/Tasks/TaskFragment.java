@@ -2,7 +2,6 @@ package com.andreiusenka.hackerlist.Tasks;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -17,15 +16,17 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.andreiusenka.hackerlist.R;
-import com.andreiusenka.hackerlist.data.Task;
+import com.andreiusenka.hackerlist.entities.Task;
 import com.andreiusenka.hackerlist.login.LoginActivity;
+import com.andreiusenka.hackerlist.util.FirebaseInterface;
 import com.andreiusenka.hackerlist.util.FirebaseUtil;
-import com.andreiusenka.hackerlist.util.LogUser;
 import com.andreiusenka.hackerlist.taskinfo.TaskInfoActivity;
-import com.andreiusenka.hackerlist.util.Toasts;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +43,8 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
     private FloatingActionButton addTaskFab;
 
     private ListView taskList;
+    private ValueEventListener tasksEventListener;
+
     private TaskInfoListener taskInfoListener = new TaskInfoListener() {
         @Override
         public void onTaskItemClick(Task task) {
@@ -82,6 +85,34 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mTaskPresenter.start();
+        tasksEventListener = FirebaseInterface.getUserTasksRef().addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<Task> taskArrayList = new ArrayList<>();
+                for (DataSnapshot taskSnapshot: dataSnapshot.getChildren()) {
+                    Task task = taskSnapshot.getValue(Task.class);
+                    taskArrayList.add(task);
+                    updateData(taskArrayList);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // TODO: 2017-01-29 maybe add something?
+            }
+        });
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        FirebaseInterface.getUserTasksRef().removeEventListener(tasksEventListener);
+    }
+
+    @Override
     public void onStart() {
         super.onStart();
         FirebaseAuth.getInstance().addAuthStateListener(mAuthListener);
@@ -98,12 +129,6 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
         View root = inflater.inflate(R.layout.task_fragment, container, false);
 
 
-        //TODO: remove me
-        ArrayList<Task> test = new ArrayList<>();
-        test.add(new Task());
-        test.add(new Task());
-        test.add(new Task());
-        listAdapter.setTasks(test);
 
         // Setup the task list
         taskList = (ListView) root.findViewById(R.id.task_activity_listview);
@@ -118,12 +143,12 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
             }
         });
 
-
         return root;
     }
 
 
-    public void updateData() {
+    public void updateData(List<Task> tasks) {
+        listAdapter.setTasks(tasks);
         listAdapter.notifyDataSetChanged();
     }
 
@@ -175,7 +200,7 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
             checkboxView.setChecked(task.isComplete());
 
             TextView textViewTitle = (TextView) listView.findViewById(R.id.textview_tasktitle);
-            textViewTitle.setText(task.getTitleForListView());
+            textViewTitle.setText(task.getTitle());
 
             TextView textViewTime = (TextView) listView.findViewById(R.id.textview_tasktime);
             textViewTime.setText(task.getTimeForListView());

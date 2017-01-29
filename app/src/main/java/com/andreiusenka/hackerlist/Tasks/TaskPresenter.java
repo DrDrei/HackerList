@@ -2,18 +2,28 @@ package com.andreiusenka.hackerlist.Tasks;
 
 import android.support.annotation.NonNull;
 
-import com.andreiusenka.hackerlist.data.Task;
-import com.andreiusenka.hackerlist.login.LoginContract;
+import com.andreiusenka.hackerlist.entities.Task;
+import com.andreiusenka.hackerlist.util.FirebaseInterface;
+
+import java.util.ArrayList;
 
 
 public class TaskPresenter implements TaskContract.Presenter  {
 
     private TaskContract.View taskView;
+//    private ArrayList<Task> taskList = new ArrayList<>();
 
     @Override
     public void start() {
-
+//        loadTasks();
     }
+
+//    private void loadTasks() {
+//        Task task = new Task("some task");
+//        taskList.add(task);
+//        FirebaseInterface.pullUserTasks();
+//        taskView.updateData(taskList);
+//    }
 
     TaskPresenter (@NonNull TaskContract.View taskView) {
         taskView.setPresenter(this);
@@ -21,7 +31,7 @@ public class TaskPresenter implements TaskContract.Presenter  {
     }
 
     public void taskClicked(Task task) {
-        taskView.showTaskInfo(task.getID());
+        taskView.showTaskInfo(task.getTaskID());
     }
 
     @Override
@@ -31,8 +41,8 @@ public class TaskPresenter implements TaskContract.Presenter  {
         } else {
             task.setActive();
         }
-
-        taskView.updateData();
+        task.updateTask();
+//        taskView.updateData(taskList);
     }
 
     @Override
@@ -42,13 +52,13 @@ public class TaskPresenter implements TaskContract.Presenter  {
         } else {
             task.setComplete();
         }
-
-        taskView.updateData();
+        task.updateTask();
+//        taskView.updateData(taskList);
     }
 
     @Override
     public void addTaskClicked() {
         // TODO: add new task with firebase and such
-        taskView.showAddNewTask();
+//        taskView.showAddNewTask();
     }
 }
