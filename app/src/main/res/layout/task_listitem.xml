@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="3dp"
     android:paddingBottom="2dp"
@@ -16,13 +18,12 @@
 
         <ImageButton
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
             android:contentDescription="@string/taskitem_playbutton"
-            android:background="@color/white"
+            android:background="@color/light_grey"
+            app:srcCompat="@drawable/ic_play_circle_outline_black_24dp"
             android:id="@+id/imagebutton_taskplay" />
 
         <CheckBox
