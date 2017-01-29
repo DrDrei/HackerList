@@ -4,6 +4,7 @@ import android.os.CountDownTimer;
 import android.support.annotation.NonNull;
 
 import com.andreiusenka.hackerlist.entities.Task;
+import com.andreiusenka.hackerlist.entities.TaskSingleton;
 
 
 public class TaskPresenter implements TaskContract.Presenter  {
@@ -51,5 +52,5 @@ public class TaskPresenter implements TaskContract.Presenter  {
         taskView.showAddNewTask();
     }
 
-
+    
 }

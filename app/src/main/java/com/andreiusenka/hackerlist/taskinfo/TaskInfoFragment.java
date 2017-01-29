@@ -201,10 +201,10 @@ public class TaskInfoFragment extends Fragment implements TaskInfoContract.View 
             final TimeSegment timeSegment = getItem(i);
 
             TextView textViewTitle = (TextView) listView.findViewById(R.id.textview_starttime);
-            textViewTitle.setText(timeSegment.getStartTimeForListItem());
+//            textViewTitle.setText(timeSegment.getStartTimeForListItem());
 
             TextView textViewTime = (TextView) listView.findViewById(R.id.textview_endtime);
-            textViewTime.setText(timeSegment.getEndTimeForListItem());
+//            textViewTime.setText(timeSegment.getEndTimeForListItem());
 
             return listView;
         }
