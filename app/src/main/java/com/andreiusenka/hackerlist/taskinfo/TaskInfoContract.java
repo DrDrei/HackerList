@@ -10,12 +10,11 @@ import com.andreiusenka.hackerlist.BaseView;
 public interface TaskInfoContract {
 
     interface View extends BaseView<Presenter> {
-
-
+        void showDateDialogFragment();
     }
 
     interface Presenter extends BasePresenter{
-
+        void dateTextClicked();
     }
 
 }

@@ -9,39 +9,69 @@
     tools:context="com.andreiusenka.hackerlist.taskinfo.TaskInfoActivity">
 
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
         android:layout_height="match_parent">
 
-        <android.support.design.widget.AppBarLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+
+            <android.support.design.widget.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay">
-                <EditText
-                    android:id="@+id/taskinfo_tasktitle_edittext"
-                    android:text="@string/tasktitle_prompt"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/taskinfo_titletextsize"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:maxLines="1"
-                    android:inputType="text" />
-            </android.support.v7.widget.Toolbar>
-        </android.support.design.widget.AppBarLayout>
+                android:layout_height="wrap_content"
+                android:theme="@style/AppTheme.AppBarOverlay">
+                <android.support.v7.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    app:popupTheme="@style/AppTheme.PopupOverlay">
+                    <EditText
+                        android:id="@+id/taskinfo_tasktitle_edittext"
+                        android:text="@string/tasktitle_prompt"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/taskinfo_titletextsize"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:maxLines="1"
+                        android:inputType="text" />
+                </android.support.v7.widget.Toolbar>
+            </android.support.design.widget.AppBarLayout>
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:text="00:00"
+                android:textSize="@dimen/taskinfo_textsize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="time"
+                android:ems="10"
+                android:id="@+id/editText" />
+
+            <CheckBox
+                android:text="Completed"
+                android:textSize="@dimen/taskinfo_textsize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/checkBox" />
+
+            <TextView
+                android:text="00:00"
+                android:textSize="@dimen/taskinfo_textsize"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:id="@+id/taskinfo_datetext" />
 
 
-    </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

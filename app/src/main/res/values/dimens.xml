@@ -6,4 +6,5 @@
 
     <dimen name="taskitem_textsize">24sp</dimen>
     <dimen name="taskinfo_titletextsize">20sp</dimen>
+    <dimen name="taskinfo_textsize">20sp</dimen>
 </resources>
