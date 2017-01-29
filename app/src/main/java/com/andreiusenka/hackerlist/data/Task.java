@@ -7,9 +7,11 @@ package com.andreiusenka.hackerlist.data;
 public class Task {
 
     private boolean active;
+    private boolean complete;
 
     public Task() {
         active = false;
+        complete = true;
     }
 
     public String getID() {
@@ -18,6 +20,18 @@ public class Task {
 
     public String getTitleForListView() {
         return "Title!";
+    }
+
+    public boolean isComplete() {
+        return complete;
+    }
+
+    public void setComplete() {
+        complete = true;
+    }
+
+    public void setIncomplete() {
+        complete = false;
     }
 
     public boolean isActive() {

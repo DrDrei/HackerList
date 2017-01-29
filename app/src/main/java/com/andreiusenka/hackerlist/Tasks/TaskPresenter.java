@@ -37,6 +37,12 @@ public class TaskPresenter implements TaskContract.Presenter  {
 
     @Override
     public void onCheckboxClicked(Task task) {
+        if (task.isComplete()) {
+            task.setIncomplete();
+        } else {
+            task.setComplete();
+        }
 
+        taskView.updateData();
     }
 }

@@ -16,30 +16,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_centerVertical="true"
-            android:layout_alignParentEnd="true"
-            android:contentDescription="@string/taskitem_playbutton"
-            android:background="@color/light_grey"
-            app:srcCompat="@drawable/ic_play_circle_outline_black_24dp"
-            android:id="@+id/imagebutton_taskplay" />
 
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/checkbox_task"
+            android:paddingRight="10dp"
             android:layout_centerVertical="true"
             android:layout_alignParentStart="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/textview_tasktime"
-            android:layout_centerVertical="true"
-            android:textSize="@dimen/taskitem_textsize"
-            android:layout_toStartOf="@+id/imagebutton_taskplay"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -49,6 +33,26 @@
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/checkbox_task"
             android:layout_toStartOf="@+id/textview_tasktime"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:paddingLeft="10dp"
+            android:contentDescription="@string/taskitem_playbutton"
+            android:background="@color/white"
+            app:srcCompat="@drawable/ic_play_circle_outline_black_24dp"
+            android:id="@+id/imagebutton_taskplay" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textview_tasktime"
+            android:layout_centerVertical="true"
+            android:textSize="@dimen/taskitem_textsize"
+            android:layout_toStartOf="@+id/imagebutton_taskplay"/>
+
 
     </RelativeLayout>
 </LinearLayout>

@@ -157,6 +157,7 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
             final Task task = getItem(i);
 
             CheckBox checkboxView = (CheckBox) listView.findViewById(R.id.checkbox_task);
+            checkboxView.setChecked(task.isComplete());
 
             TextView textViewTitle = (TextView) listView.findViewById(R.id.textview_tasktitle);
             textViewTitle.setText(task.getTitleForListView());

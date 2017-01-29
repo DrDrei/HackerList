@@ -13,5 +13,6 @@
     <string name="title_activity_tasks">Tasks</string>
     <string name="taskitem_playbutton">Play/Pause</string>
     <string name="toolbar_logout">Log Out</string>
+    <string name="title_activity_deleteme">deletemeActivity</string>
 
 </resources>
