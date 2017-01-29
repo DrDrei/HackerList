@@ -18,6 +18,7 @@ public class TaskInfoActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.taskinfo_activity);
 
+        String taskID = getIntent().getStringExtra(TASK_ID_EXTRA);
 
         TaskInfoFragment taskInfoFragment = (TaskInfoFragment) getSupportFragmentManager().findFragmentById(R.id.contentTaskInfo);
         if (taskInfoFragment == null) {
@@ -26,7 +27,7 @@ public class TaskInfoActivity extends AppCompatActivity {
         }
 
         // Create the presenter
-        TaskInfoPresenter taskPresenter = new TaskInfoPresenter(taskInfoFragment);
+        TaskInfoPresenter taskPresenter = new TaskInfoPresenter(taskInfoFragment, taskID);
     }
 
 

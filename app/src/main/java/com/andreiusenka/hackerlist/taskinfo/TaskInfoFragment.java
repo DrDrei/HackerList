@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -37,6 +38,9 @@ public class TaskInfoFragment extends Fragment implements TaskInfoContract.View 
     private TextView dateTextView;
     private TextView durationTextView;
     private CheckBox completionCheckbox;
+
+    private TimesAdapter listAdapter;
+    private ListView timesList;
 
     private TimePickerDialog.OnTimeSetListener mOnTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
         @Override
@@ -96,6 +100,12 @@ public class TaskInfoFragment extends Fragment implements TaskInfoContract.View 
         return root;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        mTaskInfoPresenter.start();
+    }
+
     public void showNumberPicker() {
         final Dialog dialog = new Dialog(getContext());
         dialog.setTitle("Duration (Hours : Minutes)");
@@ -133,6 +143,16 @@ public class TaskInfoFragment extends Fragment implements TaskInfoContract.View 
     }
 
     @Override
+    public void updateData() {
+        listAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void setData(List<TimeSegment> times) {
+        listAdapter.setTimes(times);
+    }
+
+    @Override
     public void setPresenter(TaskInfoContract.Presenter presenter) {
         mTaskInfoPresenter = presenter;
     }
@@ -148,7 +168,7 @@ public class TaskInfoFragment extends Fragment implements TaskInfoContract.View 
             this.timeSegments = times;
         }
 
-        public void setTasks(List<TimeSegment> times) {
+        public void setTimes(List<TimeSegment> times) {
             this.timeSegments = times;
             notifyDataSetChanged();
         }

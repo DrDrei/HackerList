@@ -1,11 +1,14 @@
 package com.andreiusenka.hackerlist.taskinfo;
 
+import com.andreiusenka.hackerlist.entities.Task;
+
 /**
  * Created by satyen on 28/01/17.
  */
 
 public class TaskInfoPresenter implements TaskInfoContract.Presenter {
 
+    private Task task;
     private TaskInfoContract.View taskInfoView;
 
     @Override
@@ -23,9 +26,10 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter {
         return 0;
     }
 
-    public TaskInfoPresenter(TaskInfoContract.View taskInfoView) {
+    public TaskInfoPresenter(TaskInfoContract.View taskInfoView, String taskID) {
         taskInfoView.setPresenter(this);
         this.taskInfoView = taskInfoView;
+
     }
 
 
@@ -46,7 +50,9 @@ public class TaskInfoPresenter implements TaskInfoContract.Presenter {
 
     @Override
     public int getYear() {
+
         return 0;
+
     }
 
     @Override

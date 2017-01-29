@@ -2,6 +2,9 @@ package com.andreiusenka.hackerlist.taskinfo;
 
 import com.andreiusenka.hackerlist.BasePresenter;
 import com.andreiusenka.hackerlist.BaseView;
+import com.andreiusenka.hackerlist.entities.TimeSegment;
+
+import java.util.List;
 
 /**
  * Created by satyen on 28/01/17.
@@ -11,6 +14,8 @@ public interface TaskInfoContract {
 
     interface View extends BaseView<Presenter> {
         void showDateDialogFragment();
+        void updateData();
+        void setData(List<TimeSegment> times);
     }
 
     interface Presenter extends BasePresenter{
