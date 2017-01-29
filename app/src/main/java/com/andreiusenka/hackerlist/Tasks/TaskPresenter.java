@@ -48,9 +48,8 @@ public class TaskPresenter implements TaskContract.Presenter  {
     }
 
     @Override
-    public void addTaskClicked(Task task) {
+    public void addTaskClicked() {
         // TODO: add new task with firebase and such
-        TaskSingleton.getInstance().setTask(task);
         taskView.showAddNewTask();
     }
 

@@ -19,13 +19,11 @@ public class Task {
     private Boolean isActive;
     private Long scheduledDate;
     private String userID;
-    private Long tempDuration;
 
     public Task() {
         this.isCompleted = false;
         this.isActive = false;
         this.timeSegList = new ArrayList<>();
-        this.tempDuration = new Long(0);
     }
 
     public Task(String title) {
@@ -36,7 +34,6 @@ public class Task {
         this.userID = FirebaseInterface.getUserUid();
         this.timeSegList = new ArrayList<>();
         this.scheduledDate = System.currentTimeMillis();
-        this.tempDuration = new Long(0);
         updateTask();
     }
 
@@ -77,7 +74,6 @@ public class Task {
         for (TimeSegment seg: timeSegList) {
             duration += seg.getTimeDifference();
         }
-        this.tempDuration = duration;
         return duration;
     }
 
@@ -92,22 +88,6 @@ public class Task {
                         TimeUnit.HOURS.toSeconds(TimeUnit.MILLISECONDS.toHours(duration))
         );
     }
-
-    // this is called every second on the client side to prevent excessive firebase calls.
-    public String getClientDurationString() {
-        Long duration = tempDuration;
-
-        tempDuration += 1;
-        return String.format("%02d:%02d:%02d",
-                TimeUnit.MILLISECONDS.toHours(duration),
-                TimeUnit.MILLISECONDS.toMinutes(duration) - TimeUnit.HOURS.toMinutes(TimeUnit.MILLISECONDS.toHours(duration)) ,
-                TimeUnit.MILLISECONDS.toSeconds(duration) -
-                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(duration)) -
-                        TimeUnit.HOURS.toSeconds(TimeUnit.MILLISECONDS.toHours(duration))
-        );
-    }
-
-
 
     public Boolean getCompleted() {
         return isCompleted;

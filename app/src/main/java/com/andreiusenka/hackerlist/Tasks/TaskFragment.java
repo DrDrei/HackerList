@@ -159,8 +159,6 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.task_fragment, container, false);
 
-
-
         // Setup the task list
         taskList = (ListView) root.findViewById(R.id.task_activity_listview);
         taskList.setAdapter(listAdapter);
@@ -170,9 +168,8 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
         addTaskFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Task task = new Task("some task");
-                task.updateTask();
-                mTaskPresenter.addTaskClicked(task);
+                TaskSingleton.getInstance().setTask(new Task("New Task"));
+                mTaskPresenter.addTaskClicked();
             }
         });
 

@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.andreiusenka.hackerlist.R;
+import com.andreiusenka.hackerlist.entities.TaskSingleton;
 import com.andreiusenka.hackerlist.entities.TimeSegment;
 
 import java.util.ArrayList;
@@ -99,12 +100,13 @@ public class TaskInfoFragment extends Fragment implements TaskInfoContract.View 
         // Initialize toolbar
         toolbar = (Toolbar) root.findViewById(R.id.toolbar);
         ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("");
+//        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("");
 
         timesList = (ListView) root.findViewById(R.id.taskinfo_times_listview);
         timesList.setAdapter(listAdapter);
 
         taskTitleEditText = (EditText) root.findViewById(R.id.taskinfo_tasktitle_edittext);
+//        taskTitleEditText.setText(TaskSingleton.getInstance().getTask().getTitle());
 
         durationTextView = (TextView) root.findViewById(R.id.taskinfo_timetext);
         durationTextView.setOnClickListener(new View.OnClickListener() {
