@@ -5,18 +5,9 @@ import android.util.Log;
 import com.andreiusenka.hackerlist.entities.Task;
 import com.andreiusenka.hackerlist.entities.User;
 import com.andreiusenka.hackerlist.entities.Utils;
-import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class FirebaseInterface {
@@ -47,6 +38,14 @@ public class FirebaseInterface {
     static public void registerTask(Task task) {
         try {
             getUserTaskRef(task).setValue(task);
+        } catch (Exception e) {
+            Log.i("FB", "something went wrong", e);
+        }
+    }
+
+    static public void removeTask(Task task) {
+        try {
+            getUserTasksRef().child(task.getTaskID()).removeValue();
         } catch (Exception e) {
             Log.i("FB", "something went wrong", e);
         }

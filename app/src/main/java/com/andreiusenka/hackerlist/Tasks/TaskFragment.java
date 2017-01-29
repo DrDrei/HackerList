@@ -1,5 +1,7 @@
 package com.andreiusenka.hackerlist.Tasks;
 
+import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
@@ -23,6 +25,7 @@ import com.andreiusenka.hackerlist.login.LoginActivity;
 import com.andreiusenka.hackerlist.util.FirebaseInterface;
 import com.andreiusenka.hackerlist.util.FirebaseUtil;
 import com.andreiusenka.hackerlist.taskinfo.TaskInfoActivity;
+import com.andreiusenka.hackerlist.util.Toasts;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -52,6 +55,11 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
     private TaskInfoListener taskInfoListener = new TaskInfoListener() {
         @Override
         public void onTaskItemClick(Task task) {
+            mTaskPresenter.taskClicked(task);
+        }
+        @Override
+        public void onTaskItemLongClick(Task task) {
+            Toasts.toastMessage(getContext(), "Long Click");
             mTaskPresenter.taskClicked(task);
         }
     };
@@ -292,6 +300,8 @@ public class TaskFragment extends Fragment implements TaskContract.View  {
 
     private interface TaskInfoListener {
         void onTaskItemClick(Task task);
+
+        void onTaskItemLongClick(Task task);
     }
 
     public void showTaskInfo(String taskID) {
